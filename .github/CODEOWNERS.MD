@@ -1,0 +1,8 @@
+# Lines starting with '#' are comments.
+# Each line is a file pattern followed by one or more owners.
+# The last matching pattern has the most precendence.
+
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence.
+
+* @xavier-thomas

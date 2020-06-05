@@ -1,0 +1,48 @@
+{
+  "name": "repository-template",
+  "version": "1.0.0",
+  "description": "An AWS lambda for a deployment AWS code-pipeline to monitor and wait for another pipeline.",
+  "main": "src/index.js",
+  "keywords": [
+    "aws",
+    "code-pipeline",
+    "monitoring",
+    "waiter",
+    "lambda",
+    "nodejs"
+  ],
+  "author": "Xavier Thomas",
+  "license": "BSD-3-Clause",
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "lint-staged": {
+    "./src/*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "lint": "eslint --fix ./src",
+    "precommit": "lint-staged",
+    "test": "jest --config=jest.config.json"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.580.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "aws-sdk-mock": "^4.5.0",
+    "eslint": "^6.7.1",
+    "eslint-config-prettier": "^6.1.0",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-prettier": "^3.1.0",
+    "husky": "^0.14.3",
+    "jest": "^24.9.0",
+    "lint-staged": "^7.3.0",
+    "prettier": "^1.19.1"
+  }
+}

@@ -1,0 +1,7 @@
+{
+	"coverageDirectory": "../coverage",
+	"collectCoverage": true,
+	"rootDir": "./src",
+	"testEnvironment": "node",
+	"verbose": true
+}
