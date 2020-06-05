@@ -4,16 +4,16 @@ const { assumeRole, getCredentials } = require('./sts');
 const mockCredentialsData = {
 	AssumedRoleUser: {
 		Arn: 'arn:aws:sts::123456789012:assumed-role/FakeRole/PipelineMonitoringLambda',
-		AssumedRoleId: 'ARO123EXAMPLE123:FakeRole'
+		AssumedRoleId: 'ARO123EXAMPLE123:FakeRole',
 	},
 	Credentials: {
 		AccessKeyId: 'AKIAIOSFODNN7EXAMPLE',
 		Expiration: 1534156391,
 		SecretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY',
 		SessionToken:
-			'AQoDYXdzEPT//////////wEXAMPLEtc764bNrC9SAPBSM22wDOk4x4HIZ8j4FZTwdQWLWsKWHGBuFqwAeMicRXmxfpSPfIeoIYRqTflfKD8YUuwthAx7mSEI/qkPpKPi/kMcGdQrmGdeehM4IC1NtBmUpp2wUE8phUZampKsburEDy0KPkyQDYwT7WZ0wq5VSXDvp75YU9HFvlRd8Tx6q6fE8YQcHNVXAkiY9q6d+xo0rKwT38xVqr7ZD0u0iPPkUL64lIZbqBAz+scqKmlzm8FDrypNC9Yjc8fPOLn9FX9KSYvKTr4rvx3iSIlTJabIQwj2ICCR/oLxBA=='
+			'AQoDYXdzEPT//////////wEXAMPLEtc764bNrC9SAPBSM22wDOk4x4HIZ8j4FZTwdQWLWsKWHGBuFqwAeMicRXmxfpSPfIeoIYRqTflfKD8YUuwthAx7mSEI/qkPpKPi/kMcGdQrmGdeehM4IC1NtBmUpp2wUE8phUZampKsburEDy0KPkyQDYwT7WZ0wq5VSXDvp75YU9HFvlRd8Tx6q6fE8YQcHNVXAkiY9q6d+xo0rKwT38xVqr7ZD0u0iPPkUL64lIZbqBAz+scqKmlzm8FDrypNC9Yjc8fPOLn9FX9KSYvKTr4rvx3iSIlTJabIQwj2ICCR/oLxBA==',
 	},
-	PackedPolicySize: 6
+	PackedPolicySize: 6,
 };
 
 describe('STS', () => {
@@ -24,7 +24,7 @@ describe('STS', () => {
 		expect(assumeRoleResultSpy).toHaveBeenCalledWith(
 			{
 				RoleArn: 'arn:aws:iam::123456789012:role/FakeRole',
-				RoleSessionName: 'PipelineMonitoringLambda'
+				RoleSessionName: 'PipelineMonitoringLambda',
 			},
 			expect.anything()
 		);
@@ -39,16 +39,16 @@ describe('STS', () => {
 			{
 				AssumedRoleUser: {
 					Arn: 'arn:aws:sts::123456789012:assumed-role/FakeRole/PipelineMonitoringLambda',
-					AssumedRoleId: 'ARO123EXAMPLE123:FakeRole'
+					AssumedRoleId: 'ARO123EXAMPLE123:FakeRole',
 				},
 				Credentials: {
 					AccessKeyId: 'AKIAIOSFODNN7EXAMPLE',
 					Expiration: 1534156391,
 					SecretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY',
 					SessionToken:
-						'AQoDYXdzEPT//////////wEXAMPLEtc764bNrC9SAPBSM22wDOk4x4HIZ8j4FZTwdQWLWsKWHGBuFqwAeMicRXmxfpSPfIeoIYRqTflfKD8YUuwthAx7mSEI/qkPpKPi/kMcGdQrmGdeehM4IC1NtBmUpp2wUE8phUZampKsburEDy0KPkyQDYwT7WZ0wq5VSXDvp75YU9HFvlRd8Tx6q6fE8YQcHNVXAkiY9q6d+xo0rKwT38xVqr7ZD0u0iPPkUL64lIZbqBAz+scqKmlzm8FDrypNC9Yjc8fPOLn9FX9KSYvKTr4rvx3iSIlTJabIQwj2ICCR/oLxBA=='
+						'AQoDYXdzEPT//////////wEXAMPLEtc764bNrC9SAPBSM22wDOk4x4HIZ8j4FZTwdQWLWsKWHGBuFqwAeMicRXmxfpSPfIeoIYRqTflfKD8YUuwthAx7mSEI/qkPpKPi/kMcGdQrmGdeehM4IC1NtBmUpp2wUE8phUZampKsburEDy0KPkyQDYwT7WZ0wq5VSXDvp75YU9HFvlRd8Tx6q6fE8YQcHNVXAkiY9q6d+xo0rKwT38xVqr7ZD0u0iPPkUL64lIZbqBAz+scqKmlzm8FDrypNC9Yjc8fPOLn9FX9KSYvKTr4rvx3iSIlTJabIQwj2ICCR/oLxBA==',
 				},
-				PackedPolicySize: 6
+				PackedPolicySize: 6,
 			},
 			expect.anything()
 		);

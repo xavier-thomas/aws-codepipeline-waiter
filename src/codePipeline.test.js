@@ -3,7 +3,7 @@ const { notifyFailedJob, notifySuccessfulJob, continueJobLater, getPipelineState
 
 const mockUserParameters = {
 	assumerolename: 'arn:aws:iam::123456789012:role/FakeRole',
-	targetname: 'FakePipeline'
+	targetname: 'FakePipeline',
 };
 
 const mockCodePipelineEvent = {
@@ -11,24 +11,24 @@ const mockCodePipelineEvent = {
 		data: {
 			actionConfiguration: {
 				configuration: {
-					UserParameters: JSON.stringify(mockUserParameters)
-				}
-			}
+					UserParameters: JSON.stringify(mockUserParameters),
+				},
+			},
 		},
-		id: '2989f000-275f-4031-82bf-cab460511cc4'
-	}
+		id: '2989f000-275f-4031-82bf-cab460511cc4',
+	},
 };
 
 const mockCodePipelineContext = {
 	invokeid: '15c14512-62df-4db4-8588-9c786c572a83',
 	fail: jest.fn(),
-	succeed: jest.fn()
+	succeed: jest.fn(),
 };
 
 const mockCredentials = {
 	accessKeyId: 'akid',
 	secretAccessKey: 'secret',
-	sessionToken: 'session'
+	sessionToken: 'session',
 };
 
 describe('CodePipeline', () => {
@@ -41,9 +41,9 @@ describe('CodePipeline', () => {
 				failureDetails: {
 					externalExecutionId: '15c14512-62df-4db4-8588-9c786c572a83',
 					message: 'Error',
-					type: 'JobFailed'
+					type: 'JobFailed',
 				},
-				jobId: '2989f000-275f-4031-82bf-cab460511cc4'
+				jobId: '2989f000-275f-4031-82bf-cab460511cc4',
 			},
 			expect.anything()
 		);
@@ -69,8 +69,8 @@ describe('CodePipeline', () => {
 			{
 				jobId: '2989f000-275f-4031-82bf-cab460511cc4',
 				continuationToken: JSON.stringify({
-					previous_job_id: '2989f000-275f-4031-82bf-cab460511cc4'
-				})
+					previous_job_id: '2989f000-275f-4031-82bf-cab460511cc4',
+				}),
 			},
 			expect.anything()
 		);
@@ -83,7 +83,7 @@ describe('CodePipeline', () => {
 		getPipelineState('FakeTargetPipeline', mockCredentials);
 		expect(getPipelineStateResultSpy).toHaveBeenCalledWith(
 			{
-				name: 'FakeTargetPipeline'
+				name: 'FakeTargetPipeline',
 			},
 			expect.anything()
 		);

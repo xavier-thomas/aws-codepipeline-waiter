@@ -15,8 +15,8 @@ const notifyFailedJob = async (event, context, message) => {
 		failureDetails: {
 			message: message,
 			type: 'JobFailed',
-			externalExecutionId: context.invokeid
-		}
+			externalExecutionId: context.invokeid,
+		},
 	};
 	return CodePipeline.putJobFailureResult(options).promise();
 };
@@ -26,10 +26,10 @@ const notifyFailedJob = async (event, context, message) => {
  * successfully
  * @param {object} event: The AWS event object
  */
-const notifySuccessfulJob = async event => {
+const notifySuccessfulJob = async (event) => {
 	CodePipeline = new AWS.CodePipeline();
 	const options = {
-		jobId: event['CodePipeline.job'].id
+		jobId: event['CodePipeline.job'].id,
 	};
 	return CodePipeline.putJobSuccessResult(options).promise();
 };
@@ -38,11 +38,11 @@ const notifySuccessfulJob = async event => {
  * Notifies AWS CodePipeline if the target pipeline is still in progresss
  * @param {object} event: The AWS event object
  */
-const continueJobLater = async event => {
+const continueJobLater = async (event) => {
 	CodePipeline = new AWS.CodePipeline();
 	const options = {
 		jobId: event['CodePipeline.job'].id,
-		continuationToken: JSON.stringify({ previous_job_id: event['CodePipeline.job'].id })
+		continuationToken: JSON.stringify({ previous_job_id: event['CodePipeline.job'].id }),
 	};
 	return CodePipeline.putJobSuccessResult(options).promise();
 };
@@ -55,7 +55,7 @@ const continueJobLater = async event => {
 const getPipelineState = async (targetName, credentials) => {
 	CodePipeline = new AWS.CodePipeline({ credentials: credentials });
 	const options = {
-		name: targetName
+		name: targetName,
 	};
 	return CodePipeline.getPipelineState(options).promise();
 };

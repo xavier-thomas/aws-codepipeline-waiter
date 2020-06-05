@@ -7,7 +7,7 @@ jest.mock('./sts');
 
 const mockUserParameters = {
 	assumerolename: 'arn:aws:iam::123456789012:role/FakeRole',
-	targetname: 'FakePipeline'
+	targetname: 'FakePipeline',
 };
 
 const mockValidCodePipelineEvent = {
@@ -15,11 +15,11 @@ const mockValidCodePipelineEvent = {
 		data: {
 			actionConfiguration: {
 				configuration: {
-					UserParameters: JSON.stringify(mockUserParameters)
-				}
-			}
-		}
-	}
+					UserParameters: JSON.stringify(mockUserParameters),
+				},
+			},
+		},
+	},
 };
 
 const mockInvalidCodePipelineEvent = {
@@ -27,33 +27,33 @@ const mockInvalidCodePipelineEvent = {
 		data: {
 			actionConfiguration: {
 				configuration: {
-					UserParameters: null
-				}
-			}
-		}
-	}
+					UserParameters: null,
+				},
+			},
+		},
+	},
 };
 
 const mockLambdaContext = {
-	invokeid: '9a2b02ef-28bc-81ea-48be-f2f26b9ef79b'
+	invokeid: '9a2b02ef-28bc-81ea-48be-f2f26b9ef79b',
 };
 
 const mockAssumedRoleData = {
 	ResponseMetadata: {
-		RequestId: 'a817893e-9b25-11e8-90e6-6f826b9ef79a'
+		RequestId: 'a817893e-9b25-11e8-90e6-6f826b9ef79a',
 	},
 	AssumedRoleUser: {
 		Arn: 'arn:aws:sts::123456789012:assumed-role/FakeRole/PipelineMonitoringLambda',
-		AssumedRoleId: 'ARO123EXAMPLE123:FakeRole'
+		AssumedRoleId: 'ARO123EXAMPLE123:FakeRole',
 	},
 	Credentials: {
 		AccessKeyId: 'AKIAIOSFODNN7EXAMPLE',
 		Expiration: '2018-08-08T17:11:07.000Z',
 		SecretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY',
 		SessionToken:
-			'AQoDYXdzEPT//////////wEXAMPLEtc764bNrC9SAPBSM22wDOk4x4HIZ8j4FZTwdQWLWsKWHGBuFqwAeMicRXmxfpSPfIeoIYRqTflfKD8YUuwthAx7mSEI/qkPpKPi/kMcGdQrmGdeehM4IC1NtBmUpp2wUE8phUZampKsburEDy0KPkyQDYwT7WZ0wq5VSXDvp75YU9HFvlRd8Tx6q6fE8YQcHNVXAkiY9q6d+xo0rKwT38xVqr7ZD0u0iPPkUL64lIZbqBAz+scqKmlzm8FDrypNC9Yjc8fPOLn9FX9KSYvKTr4rvx3iSIlTJabIQwj2ICCR/oLxBA=='
+			'AQoDYXdzEPT//////////wEXAMPLEtc764bNrC9SAPBSM22wDOk4x4HIZ8j4FZTwdQWLWsKWHGBuFqwAeMicRXmxfpSPfIeoIYRqTflfKD8YUuwthAx7mSEI/qkPpKPi/kMcGdQrmGdeehM4IC1NtBmUpp2wUE8phUZampKsburEDy0KPkyQDYwT7WZ0wq5VSXDvp75YU9HFvlRd8Tx6q6fE8YQcHNVXAkiY9q6d+xo0rKwT38xVqr7ZD0u0iPPkUL64lIZbqBAz+scqKmlzm8FDrypNC9Yjc8fPOLn9FX9KSYvKTr4rvx3iSIlTJabIQwj2ICCR/oLxBA==',
 	},
-	PackedPolicySize: 6
+	PackedPolicySize: 6,
 };
 
 const mockCredentialsObject = {
@@ -68,9 +68,9 @@ const mockCredentialsObject = {
 		accessKeyId: 'ASIASVSNOLSJFWNOMA4PY',
 		sessionToken:
 			'FQoGZXIvYXdzEMr//////////wEaDML+QdwbMzuF6kB2DyLuAfzZUd1flyzt2Wa2r2qrqasfatr2asfsa70RIol8E8+LVU5+fzSiW0yZlL7x9Xel7M6k8Dj4u6Oi42f+xYMIze1lfBO4fAULbbagY+GVhGNP3Ic8mHr7yJEUVzuI8iBuJzatuwLhfGF8lEt+/FaRLX9FSkqQxVVnSB2YQ5OlVHF7zOmaIB1yvySPm2IcQGPijHSYTazJP2lYxAD1EJfdvrJNPpW/K0YiasWeRv2F5cjT/GC3ve1teszNMuBdV2eoYd8wP2IGOYw2fpTmNQVnsXuQYetO1Mon/c0Iomays2wU=',
-		envPrefix: 'AWS'
+		envPrefix: 'AWS',
 	},
-	params: {}
+	params: {},
 };
 
 const mockFailedPipelineResult = {
@@ -79,22 +79,22 @@ const mockFailedPipelineResult = {
 		{
 			stageName: 'Source',
 			latestExecution: {
-				status: 'Succeeded'
-			}
+				status: 'Succeeded',
+			},
 		},
 		{
 			stageName: 'Build',
 			latestExecution: {
-				status: 'Failed'
-			}
+				status: 'Failed',
+			},
 		},
 		{
 			stageName: 'Deploy',
 			latestExecution: {
-				status: 'Succeeded'
-			}
-		}
-	]
+				status: 'Succeeded',
+			},
+		},
+	],
 };
 
 const mockSuccessfulPipelineResult = {
@@ -103,22 +103,22 @@ const mockSuccessfulPipelineResult = {
 		{
 			stageName: 'Source',
 			latestExecution: {
-				status: 'Succeeded'
-			}
+				status: 'Succeeded',
+			},
 		},
 		{
 			stageName: 'Build',
 			latestExecution: {
-				status: 'Succeeded'
-			}
+				status: 'Succeeded',
+			},
 		},
 		{
 			stageName: 'Deploy',
 			latestExecution: {
-				status: 'Succeeded'
-			}
-		}
-	]
+				status: 'Succeeded',
+			},
+		},
+	],
 };
 
 const mockPendingPipelineresult = {
@@ -127,19 +127,19 @@ const mockPendingPipelineresult = {
 		{
 			stageName: 'Source',
 			latestExecution: {
-				status: 'Succeeded'
-			}
+				status: 'Succeeded',
+			},
 		},
 		{
 			stageName: 'Build',
 			latestExecution: {
-				status: 'InProgress'
-			}
+				status: 'InProgress',
+			},
 		},
 		{
-			stageName: 'Deploy'
-		}
-	]
+			stageName: 'Deploy',
+		},
+	],
 };
 
 describe('Index', () => {
@@ -202,12 +202,12 @@ describe('Index', () => {
 	it('must return a failure signal to the invoking pipeline if there is an error during execution of the handler', async () => {
 		STS.assumeRole.mockRejectedValue({
 			AccessDenied:
-				'User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole'
+				'User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole',
 		});
 		await handler(mockValidCodePipelineEvent, mockLambdaContext);
 		expect(console.error).toHaveBeenCalledWith('An error occurred while monitoring the pipeline FakePipeline', {
 			AccessDenied:
-				'User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole'
+				'User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole',
 		});
 		expect(codePipeline.notifyFailedJob).toHaveBeenCalledWith(
 			mockValidCodePipelineEvent,
