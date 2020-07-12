@@ -7,7 +7,12 @@ module.exports = function(config) {
 		maxConcurrentTestRunners: 1,
 		mutate: ['src/**/*.js', '!src/**/*.test.js', '!src/mocks.js'],
 		mutator: 'javascript',
-		reporters: ['clear-text', 'progress'],
+		jest: {
+			config: require('./jest.config.json'),
+			"enableFindRelatedTests": false
+		},		
+		packageManager: 'yarn',		
+		reporters: ['html', 'clear-text', 'progress'],
 		testRunner: 'jest',
 		transpilers: ['babel']
 	});

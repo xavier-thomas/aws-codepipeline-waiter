@@ -1,5 +1,5 @@
-const { notifyFailedJob, notifySuccessfulJob, continueJobLater, getPipelineState } = require('./codePipeline');
-const { assumeRole, getCredentials } = require('./sts');
+import { assumeRole, getCredentials } from './sts';
+import { continueJobLater, getPipelineState, notifyFailedJob, notifySuccessfulJob } from './codePipeline';
 
 exports.handler = async (event, context) => {
 	console.info('Event: ' + JSON.stringify(event));

@@ -22,11 +22,11 @@ describe('[sts.js] unit tests', () => {
 
 	describe('[getCredentials] when a valid assumeRoleData is passed', () => {
 		it('must assume a cross account role', async () => {
-			mockAssumeRole.mockResolvedValue(mockAssumedRoleData);
+			mockAssumeRole.mockReturnValue({
+				promise: jest.fn().mockResolvedValue(mockAssumedRoleData),
+			});
 			const response = await assumeRole(MOCK_ASSUME_ROLE_ARN);
-			expect(response).toEqual(mockAssumedRoleData);
-
-			//expect(await assumeRole()).toEqual(mockAssumedRoleData);
+			expect(response).toEqual(mockAssumedRoleData);			
 			expect(mockAssumeRole).toHaveBeenCalledWith(
 				{
 					RoleArn: MOCK_ASSUME_ROLE_ARN,
@@ -37,7 +37,7 @@ describe('[sts.js] unit tests', () => {
 
 	});
 
-	
+
 	describe('[getCredentials] when a valid assumeRoleData is passed', () => {
 
 		it('must get an AWS Credentials Object from the AssumeRole output data', async () => {

@@ -1,41 +1,25 @@
-const AWS = require('aws-sdk-mock');
-const { notifyFailedJob, notifySuccessfulJob, continueJobLater, getPipelineState } = require('./codePipeline');
-
-const mockUserParameters = {
-	assumerolename: 'arn:aws:iam::123456789012:role/FakeRole',
-	targetname: 'FakePipeline',
-};
-
-const mockCodePipelineEvent = {
-	'CodePipeline.job': {
-		data: {
-			actionConfiguration: {
-				configuration: {
-					UserParameters: JSON.stringify(mockUserParameters),
-				},
-			},
-		},
-		id: '2989f000-275f-4031-82bf-cab460511cc4',
-	},
-};
-
-const mockCodePipelineContext = {
-	invokeid: '15c14512-62df-4db4-8588-9c786c572a83',
-	fail: jest.fn(),
-	succeed: jest.fn(),
-};
-
-const mockCredentials = {
-	accessKeyId: 'akid',
-	secretAccessKey: 'secret',
-	sessionToken: 'session',
-};
+import { continueJobLater, getPipelineState, notifyFailedJob, notifySuccessfulJob } from './codePipeline';
+import { mockCodePipelineContext, mockCredentials, mockValidCodePipelineEvent } from './mocks';
+import AWS from 'aws-sdk-mock';
 
 describe('CodePipeline', () => {
+	const getPipelineStateResultSpy = jest.fn();
+	const putJobFailureResultSpy = jest.fn();
+	const putJobSuccessResultSpy = jest.fn();
+
+	beforeEach(() => {
+		jest.spyOn(console, 'error').mockImplementation(() => {});
+		jest.spyOn(console, 'info').mockImplementation(() => {});
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+		jest.restoreAllMocks();
+	});
+
 	it('must notify AWS CodePipeline of an unsuccessful invocation of the handler', () => {
-		const putJobFailureResultSpy = jest.fn();
 		AWS.mock('CodePipeline', 'putJobFailureResult', putJobFailureResultSpy);
-		notifyFailedJob(mockCodePipelineEvent, mockCodePipelineContext, 'Error');
+		notifyFailedJob(mockValidCodePipelineEvent, mockCodePipelineContext, 'Error');
 		expect(putJobFailureResultSpy).toHaveBeenCalledWith(
 			{
 				failureDetails: {
@@ -47,24 +31,20 @@ describe('CodePipeline', () => {
 			},
 			expect.anything()
 		);
-		AWS.restore('CodePipeline');
 	});
 
 	it('must notify AWS CodePipeline of a successful invocation of the handler', () => {
-		const putJobSuccessResultSpy = jest.fn();
 		AWS.mock('CodePipeline', 'putJobSuccessResult', putJobSuccessResultSpy);
-		notifySuccessfulJob(mockCodePipelineEvent);
+		notifySuccessfulJob(mockValidCodePipelineEvent);
 		expect(putJobSuccessResultSpy).toHaveBeenCalledWith(
 			{ jobId: '2989f000-275f-4031-82bf-cab460511cc4' },
 			expect.anything()
 		);
-		AWS.restore('CodePipeline');
 	});
 
 	it('must notify AWS CodePipeline of a pending pipeline job', () => {
-		const putJobSuccessResultSpy = jest.fn();
 		AWS.mock('CodePipeline', 'putJobSuccessResult', putJobSuccessResultSpy);
-		continueJobLater(mockCodePipelineEvent);
+		continueJobLater(mockValidCodePipelineEvent);
 		expect(putJobSuccessResultSpy).toHaveBeenCalledWith(
 			{
 				jobId: '2989f000-275f-4031-82bf-cab460511cc4',
@@ -74,11 +54,9 @@ describe('CodePipeline', () => {
 			},
 			expect.anything()
 		);
-		AWS.restore('CodePipeline');
 	});
 
 	it('must get the latest execution status of a AWS CodePipeline', () => {
-		const getPipelineStateResultSpy = jest.fn();
 		AWS.mock('CodePipeline', 'getPipelineState', getPipelineStateResultSpy);
 		getPipelineState('FakeTargetPipeline', mockCredentials);
 		expect(getPipelineStateResultSpy).toHaveBeenCalledWith(
@@ -87,6 +65,5 @@ describe('CodePipeline', () => {
 			},
 			expect.anything()
 		);
-		AWS.restore('CodePipeline');
 	});
 });

@@ -10,7 +10,7 @@ const assumeRole = async (assumeRoleName) => {
 	STS = new AWS.STS();
 	const options = {
 		RoleArn: assumeRoleName,
-		RoleSessionName: 'PipelineMonitoringLambda',
+		RoleSessionName: "PipelineMonitoringLambda",
 	};
 	return STS.assumeRole(options).promise();
 };
