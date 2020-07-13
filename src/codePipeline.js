@@ -1,4 +1,4 @@
-const AWS = require('aws-sdk');
+import AWS from 'aws-sdk';
 
 let CodePipeline;
 
@@ -7,6 +7,7 @@ let CodePipeline;
  * @param {object} event: The AWS event object
  * @param {object} context: The AWS context object
  * @param {string} message: A message to describe the failure
+ * @returns {promise} :HTTPS Status 200 and empty body
  */
 const notifyFailedJob = async (event, context, message) => {
 	CodePipeline = new AWS.CodePipeline();
@@ -25,6 +26,7 @@ const notifyFailedJob = async (event, context, message) => {
  * Notifies AWS CodePipeline if the target pipeline has completed
  * successfully
  * @param {object} event: The AWS event object
+ * @returns {promise} :HTTPS Status 200 and empty body
  */
 const notifySuccessfulJob = async (event) => {
 	CodePipeline = new AWS.CodePipeline();
@@ -37,6 +39,7 @@ const notifySuccessfulJob = async (event) => {
 /**
  * Notifies AWS CodePipeline if the target pipeline is still in progresss
  * @param {object} event: The AWS event object
+ * @returns {promise} :HTTPS Status 200 and empty body
  */
 const continueJobLater = async (event) => {
 	CodePipeline = new AWS.CodePipeline();
@@ -51,6 +54,7 @@ const continueJobLater = async (event) => {
  * Get the execution status of the latest run of a given AWS CodePipeline
  * @param {object} targetName: The name of the target AWS CodePipeline
  * @param {object} credentials: The AWS Credentials object with the correct cross account permisions
+ * @returns {object} pipelineState: Returns the Pipeline State
  */
 const getPipelineState = async (targetName, credentials) => {
 	CodePipeline = new AWS.CodePipeline({ credentials: credentials });

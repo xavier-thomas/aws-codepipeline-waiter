@@ -1,5 +1,19 @@
-const { notifyFailedJob, notifySuccessfulJob, continueJobLater, getPipelineState } = require('./codePipeline');
-const { assumeRole, getCredentials } = require('./sts');
+import { assumeRole, getCredentials } from './sts';
+import { continueJobLater, getPipelineState, notifyFailedJob, notifySuccessfulJob } from './codePipeline';
+
+/**
+ * Invokes the Pipeline Monitor and Waiter Lambda
+ *
+ * @param {Object} event :Code Pipeline Lambda Invoke Event
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-Lambda.html#action-reference-Lambda-event
+ *
+ * @param {Object} context :Lambda Invoke Context
+ * https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
+ *
+ * @returns {PutJobSuccessResult, PutJobFailureResult} As part of the implementation of the Lambda function, there must be a call to either the PutJobSuccessResult API or PutJobFailureResult API.
+ * Otherwise, the execution of this action hangs until the action times out
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-Lambda.html
+ */
 
 exports.handler = async (event, context) => {
 	console.info('Event: ' + JSON.stringify(event));
