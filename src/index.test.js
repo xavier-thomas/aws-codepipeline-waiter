@@ -1,100 +1,98 @@
 import {
-	mockAssumedRoleData,
-	mockCredentialsObject,
-	mockFailedPipelineResult,
-	mockInvalidCodePipelineEvent,
-	mockLambdaContext,
-	mockPendingPipelineresult,
-	mockSuccessfulPipelineResult,
-	mockValidCodePipelineEvent,
+	MOCK_ASSUMED_ROLE_DATA,
+	MOCK_CONTEXT,
+	MOCK_CREDENTIALS_OBJECT,
+	MOCK_EVENT,
+	MOCK_EVENT_INVALID,
+	MOCK_FAILED_PIPELINE_STATE,
+	MOCK_PENDING_PIPELINE_STATE,
+	MOCK_SUCCESSFUL_PIPELINE_STATE,
 } from './mocks';
-import STS from './sts';
-import codePipeline from './codePipeline';
+import { assumeRole, getCredentials } from './sts';
+import { continueJobLater, getPipelineState, notifyFailedJob, notifySuccessfulJob } from './codePipeline';
 import { handler } from './index';
 
 jest.mock('./codePipeline');
 jest.mock('./sts');
 
-describe('Index', () => {
+describe('[index.js] unit tests', () => {
 	beforeEach(() => {
+		jest.restoreAllMocks();
 		jest.spyOn(console, 'error').mockImplementation(() => {});
 		jest.spyOn(console, 'info').mockImplementation(() => {});
-		jest.spyOn(console, 'log').mockImplementation(() => {});
 	});
 
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
-	it('must log the event, context and pipeline status', async () => {
-		STS.assumeRole.mockResolvedValue(mockAssumedRoleData);
-		STS.getCredentials.mockResolvedValue(mockCredentialsObject);
-		codePipeline.getPipelineState.mockResolvedValue(mockFailedPipelineResult);
-		await handler(mockValidCodePipelineEvent, mockLambdaContext);
-		expect(console.info).toHaveBeenCalledWith('Event: ' + JSON.stringify(mockValidCodePipelineEvent));
-		expect(console.info).toHaveBeenCalledWith('Context: ' + JSON.stringify(mockLambdaContext));
-		expect(console.info).toHaveBeenCalledWith('Pipeline Status: ' + JSON.stringify(mockFailedPipelineResult));
-	});
-
-	it('must return a failure signal to the invoking pipeline when the target pipeline has failed', async () => {
-		STS.assumeRole.mockResolvedValue(mockAssumedRoleData);
-		STS.getCredentials.mockResolvedValue(mockCredentialsObject);
-		codePipeline.getPipelineState.mockResolvedValue(mockFailedPipelineResult);
-		await handler(mockValidCodePipelineEvent, mockLambdaContext);
-		expect(codePipeline.continueJobLater).not.toHaveBeenCalled();
-		expect(codePipeline.notifySuccessfulJob).not.toHaveBeenCalled();
-		expect(codePipeline.notifyFailedJob).toHaveBeenCalledWith(
-			mockValidCodePipelineEvent,
-			mockLambdaContext,
-			'FakePipeline has failed.'
-		);
-	});
-
-	it('must return a success signal to the invoking pipeline when the target pipeline has completed successfully', async () => {
-		STS.assumeRole.mockResolvedValue(mockAssumedRoleData);
-		STS.getCredentials.mockResolvedValue(mockCredentialsObject);
-		codePipeline.getPipelineState.mockResolvedValue(mockSuccessfulPipelineResult);
-		await handler(mockValidCodePipelineEvent, null);
-		expect(codePipeline.notifyFailedJob).not.toHaveBeenCalled();
-		expect(codePipeline.continueJobLater).not.toHaveBeenCalled();
-		expect(codePipeline.notifySuccessfulJob).toHaveBeenCalledWith(mockValidCodePipelineEvent);
-		expect(console.info).toHaveBeenCalledWith('Pipeline FakePipeline Completed Successfully.');
-	});
-
-	it('must return a continuation token signal to the invoking pipeline when the target pipeline has failed', async () => {
-		STS.assumeRole.mockResolvedValue(mockAssumedRoleData);
-		STS.getCredentials.mockResolvedValue(mockCredentialsObject);
-		codePipeline.getPipelineState.mockResolvedValue(mockPendingPipelineresult);
-		await handler(mockValidCodePipelineEvent, null);
-		expect(codePipeline.notifyFailedJob).not.toHaveBeenCalled();
-		expect(codePipeline.notifySuccessfulJob).not.toHaveBeenCalled();
-		expect(codePipeline.continueJobLater).toHaveBeenCalledWith(mockValidCodePipelineEvent);
-		expect(console.info).toHaveBeenCalledWith('Waiting for Pipeline FakePipeline to complete.');
-	});
-
-	it('must return a failure signal to the invoking pipeline if there is an error during execution of the handler', async () => {
-		STS.assumeRole.mockRejectedValue({
-			AccessDenied:
-				'User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole',
+	describe('[handler] when a valid event and context are passed', () => {
+		it('must log the event and context', async () => {
+			getPipelineState.mockResolvedValue(MOCK_FAILED_PIPELINE_STATE);
+			await handler(MOCK_EVENT, MOCK_CONTEXT);
+			expect(console.info).toHaveBeenCalledWith('Event: ' + JSON.stringify(MOCK_EVENT));
+			expect(console.info).toHaveBeenCalledWith('Context: ' + JSON.stringify(MOCK_CONTEXT));
+			expect(console.info).toHaveBeenCalledWith('Pipeline Status: ' + JSON.stringify(MOCK_FAILED_PIPELINE_STATE));
 		});
-		await handler(mockValidCodePipelineEvent, mockLambdaContext);
-		expect(console.error).toHaveBeenCalledWith('An error occurred while monitoring the pipeline FakePipeline', {
-			AccessDenied:
-				'User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole',
+
+		it('must return a failure signal to the invoking pipeline if there is an error during execution of the handler', async () => {
+			assumeRole.mockRejectedValue({
+				AccessDenied:
+					'User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole',
+			});
+			await handler(MOCK_EVENT, MOCK_CONTEXT);
+			expect(console.error).toHaveBeenCalledWith('An error occurred while monitoring the pipeline FakePipeline', {
+				AccessDenied:
+					'User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole',
+			});
+			expect(notifyFailedJob).toHaveBeenCalledWith(
+				MOCK_EVENT,
+				MOCK_CONTEXT,
+				'The following error occurred: {"AccessDenied":"User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole"}'
+			);
 		});
-		expect(codePipeline.notifyFailedJob).toHaveBeenCalledWith(
-			mockValidCodePipelineEvent,
-			mockLambdaContext,
-			'The following error occurred: {"AccessDenied":"User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole"}'
-		);
+
+		it('must return a success signal to the invoking pipeline when the target pipeline has completed successfully', async () => {
+			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
+			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
+			getPipelineState.mockResolvedValue(MOCK_SUCCESSFUL_PIPELINE_STATE);
+			await handler(MOCK_EVENT, MOCK_CONTEXT);
+			expect(notifyFailedJob).not.toHaveBeenCalled();
+			expect(continueJobLater).not.toHaveBeenCalled();
+			expect(notifySuccessfulJob).toHaveBeenCalledWith(MOCK_EVENT);
+			expect(console.info).toHaveBeenCalledWith('Pipeline FakePipeline Completed Successfully.');
+		});
+
+		it('must return a continuation token signal to the invoking pipeline when the target pipeline has failed', async () => {
+			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
+			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
+			getPipelineState.mockResolvedValue(MOCK_PENDING_PIPELINE_STATE);
+			await handler(MOCK_EVENT, MOCK_CONTEXT);
+			expect(notifyFailedJob).not.toHaveBeenCalled();
+			expect(notifySuccessfulJob).not.toHaveBeenCalled();
+			expect(continueJobLater).toHaveBeenCalledWith(MOCK_EVENT);
+			expect(console.info).toHaveBeenCalledWith('Waiting for Pipeline FakePipeline to complete.');
+		});
+
+		it('must return a failure signal to the invoking pipeline when the target pipeline has failed', async () => {
+			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
+			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
+			getPipelineState.mockResolvedValue(MOCK_FAILED_PIPELINE_STATE);
+			await handler(MOCK_EVENT, MOCK_CONTEXT);
+			expect(continueJobLater).not.toHaveBeenCalled();
+			expect(notifySuccessfulJob).not.toHaveBeenCalled();
+			expect(notifyFailedJob).toHaveBeenCalledWith(MOCK_EVENT, MOCK_CONTEXT, 'FakePipeline has failed.');
+		});
 	});
 
-	it('must return a failure signal to the invoking pipeline if there is an error with the parameters provided to the handler', async () => {
-		await handler(mockInvalidCodePipelineEvent, mockLambdaContext);
-		expect(codePipeline.notifyFailedJob).toHaveBeenCalledWith(
-			mockInvalidCodePipelineEvent,
-			mockLambdaContext,
-			'Valid user parameters have not been specified.'
-		);
+	describe('[handler] when an invalid event and context are passed', () => {
+		it('must return a failure signal to the invoking pipeline if there is an error with the parameters provided to the handler', async () => {
+			await handler(MOCK_EVENT_INVALID, MOCK_CONTEXT);
+			expect(notifyFailedJob).toHaveBeenCalledWith(
+				MOCK_EVENT_INVALID,
+				MOCK_CONTEXT,
+				'Valid user parameters have not been specified.'
+			);
+		});
 	});
 });

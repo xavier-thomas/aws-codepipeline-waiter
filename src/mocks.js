@@ -1,65 +1,6 @@
 export const MOCK_ASSUME_ROLE_ARN = 'arn:aws:iam::123456789012:role/FakeRole';
 
-
-export const mockUserParameters = {
-	assumerolename: MOCK_ASSUME_ROLE_ARN,
-	targetname: 'FakePipeline',
-};
-
-// export const mockValidCodePipelineEvent = {
-// 	'CodePipeline.job': {
-// 		data: {
-// 			actionConfiguration: {
-// 				configuration: {
-// 					UserParameters: JSON.stringify(mockUserParameters),
-// 				},
-// 			},
-// 		},
-// 	},
-// };
-
-export const mockInvalidCodePipelineEvent = {
-	'CodePipeline.job': {
-		data: {
-			actionConfiguration: {
-				configuration: {
-					UserParameters: null,
-				},
-			},
-		},
-	},
-};
-
-export const mockCodePipelineEvent = {
-	'CodePipeline.job': {
-		data: {
-			actionConfiguration: {
-				configuration: {
-					UserParameters: JSON.stringify(mockUserParameters),
-				},
-			},
-		},
-		id: '2989f000-275f-4031-82bf-cab460511cc4',
-	},
-};
-
-export const mockCodePipelineContext = {
-	invokeid: '15c14512-62df-4db4-8588-9c786c572a83',
-	fail: jest.fn(),
-	succeed: jest.fn(),
-};
-
-export const mockCredentials = {
-	accessKeyId: 'akid',
-	secretAccessKey: 'secret',
-	sessionToken: 'session',
-};
-
-export const mockLambdaContext = {
-	invokeid: '9a2b02ef-28bc-81ea-48be-f2f26b9ef79b',
-};
-
-export const mockAssumedRoleData = {
+export const MOCK_ASSUMED_ROLE_DATA = {
 	ResponseMetadata: {
 		RequestId: 'a817893e-9b25-11e8-90e6-6f826b9ef79a',
 	},
@@ -77,7 +18,7 @@ export const mockAssumedRoleData = {
 	PackedPolicySize: 6,
 };
 
-export const mockCredentialsObject = {
+export const MOCK_CREDENTIALS_OBJECT = {
 	expired: false,
 	expireTime: '2018-08-08T17:11:07.000Z',
 	accessKeyId: 'ASIASXBQRWFASXWKV646C',
@@ -94,8 +35,72 @@ export const mockCredentialsObject = {
 	params: {},
 };
 
-export const mockFailedPipelineResult = {
-	pipelineName: 'infrastructure-lambdas-build-deploy-pipeline',
+export const MOCK_TARGET_NAME = 'FakePipeline';
+
+export const MOCK_USER_PARAMETERS = {
+	assumerolename: MOCK_ASSUME_ROLE_ARN,
+	targetname: MOCK_TARGET_NAME,
+};
+
+export const MOCK_PIPELINE_ID = '2989f000-275f-4031-82bf-cab460511cc4';
+
+export const MOCK_INVOKE_ID = '15c14512-62df-4db4-8588-9c786c572a83';
+
+export const MOCK_EVENT = {
+	'CodePipeline.job': {
+		data: {
+			actionConfiguration: {
+				configuration: {
+					UserParameters: JSON.stringify(MOCK_USER_PARAMETERS),
+				},
+			},
+		},
+		id: MOCK_PIPELINE_ID,
+	},
+};
+
+export const MOCK_CONTEXT = {
+	invokeid: MOCK_INVOKE_ID,
+};
+
+export const MOCK_EVENT_INVALID = {
+	'CodePipeline.job': {
+		data: {
+			actionConfiguration: {
+				configuration: {
+					UserParameters: null,
+				},
+			},
+		},
+	},
+};
+
+export const MOCK_SUCCESSFUL_PIPELINE_STATE = {
+	pipelineName: 'FakePipeline',
+	stageStates: [
+		{
+			stageName: 'Source',
+			latestExecution: {
+				status: 'Succeeded',
+			},
+		},
+		{
+			stageName: 'Build',
+			latestExecution: {
+				status: 'Succeeded',
+			},
+		},
+		{
+			stageName: 'Deploy',
+			latestExecution: {
+				status: 'Succeeded',
+			},
+		},
+	],
+};
+
+export const MOCK_FAILED_PIPELINE_STATE = {
+	pipelineName: 'FakePipeline',
 	stageStates: [
 		{
 			stageName: 'Source',
@@ -118,32 +123,8 @@ export const mockFailedPipelineResult = {
 	],
 };
 
-export const mockSuccessfulPipelineResult = {
-	pipelineName: 'infrastructure-lambdas-build-deploy-pipeline',
-	stageStates: [
-		{
-			stageName: 'Source',
-			latestExecution: {
-				status: 'Succeeded',
-			},
-		},
-		{
-			stageName: 'Build',
-			latestExecution: {
-				status: 'Succeeded',
-			},
-		},
-		{
-			stageName: 'Deploy',
-			latestExecution: {
-				status: 'Succeeded',
-			},
-		},
-	],
-};
-
-export const mockPendingPipelineresult = {
-	pipelineName: 'infrastructure-lambdas-build-deploy-pipeline',
+export const MOCK_PENDING_PIPELINE_STATE = {
+	pipelineName: 'FakePipeline',
 	stageStates: [
 		{
 			stageName: 'Source',

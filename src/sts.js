@@ -4,13 +4,14 @@ let STS;
 
 /**
  * Assumes a cross account role and returns the AWS credentials object.
- * @param {object} assumeRoleName: The ARN of the AWS IAM role
+ * @param {object} assumeRoleArn: The ARN of the AWS IAM role
+ * @returns {object} :The Data returned by the STS Assume Role API call
  */
-const assumeRole = async (assumeRoleName) => {
+const assumeRole = async (assumeRoleArn) => {
 	STS = new AWS.STS();
 	const options = {
-		RoleArn: assumeRoleName,
-		RoleSessionName: "PipelineMonitoringLambda",
+		RoleArn: assumeRoleArn,
+		RoleSessionName: 'PipelineMonitoringLambda',
 	};
 	return STS.assumeRole(options).promise();
 };
@@ -18,6 +19,7 @@ const assumeRole = async (assumeRoleName) => {
 /**
  * Assumes a cross account role and returns the AWS credentials object.
  * @param {object} assumeRoleData: The Data returned by the STS Assume Role API call
+ * @returns {object} :The Credentials Object returned by AWS STS.GetCredentials
  */
 const getCredentials = async (assumeRoleData) => {
 	STS = new AWS.STS();

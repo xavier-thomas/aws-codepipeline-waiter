@@ -10,8 +10,8 @@ module.exports = function(config) {
 		jest: {
 			config: require('./jest.config.json'),
 			"enableFindRelatedTests": false
-		},		
-		packageManager: 'yarn',		
+		},
+		packageManager: 'yarn',
 		reporters: ['html', 'clear-text', 'progress'],
 		testRunner: 'jest',
 		transpilers: ['babel']
