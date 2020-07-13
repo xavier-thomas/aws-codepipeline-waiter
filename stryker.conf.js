@@ -4,6 +4,9 @@ module.exports = function(config) {
 			optionsFile: '.babelrc'
 		},
 		coverageAnalysis: 'off',
+		dashboard: {
+			reportType: 'full'
+		},
 		maxConcurrentTestRunners: 1,
 		mutate: ['src/**/*.js', '!src/**/*.test.js', '!src/mocks.js'],
 		mutator: 'javascript',
@@ -12,7 +15,7 @@ module.exports = function(config) {
 			"enableFindRelatedTests": false
 		},
 		packageManager: 'yarn',
-		reporters: ['html', 'clear-text', 'progress'],
+		reporters: ['html', 'clear-text', 'progress', 'dashboard'],
 		testRunner: 'jest',
 		transpilers: ['babel']
 	});
