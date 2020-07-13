@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
-## 🚀 1.1.0 - (Aug 15, 2018)
+## 1.1.0 - (Aug 15, 2018)
 ### Added
 - Enabled Mutation Tests with Stryker
     - Added Mutation Testing Score Badge to README
