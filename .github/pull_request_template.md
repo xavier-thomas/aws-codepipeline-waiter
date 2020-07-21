@@ -21,14 +21,27 @@ Please also list any relevant details for your test configuration
 
 # Checklist:
 
+#### Versioning
+- [ ] `Changelog` has been updated in the root directory
+- [ ] Version updated on `package.json` in the root directory
+
+#### PR Etiquette
+- [ ] I've added labels to my PR to describe the change.
+
+#### Sanity
 - [ ] I have performed a self-review of my own code
-- [ ] I have commented on my code, particularly in hard-to-understand areas
 - [ ] I have added necessary documentation (if appropriate)
-- [ ] I have added tests that prove my fix is effective or that my feature works
 - [ ] Any dependent changes have been merged and published in downstream modules
-- [ ] Changelog has been updated
-- [ ] Linting and testing (unit and component) passing locally
-- [ ] Check that sonarqube has no errors
-- [ ] Integration tests passing and extra tests added if necessary
+
+#### Testing
+- [ ] Linting passing locally
+- [ ] I have added tests that prove my fix is effective or that my feature works
+- [ ] Unit testing passing locally
+- [ ] Mutation testing is passing locally
+- [ ] Integration tests & End to End tests are passing
+
+#### Code Quality
 - [ ] Errors and handled and Logged
 - [ ] Types added to all method signatures and parameters
+- [ ] I have commented on my code, particularly in hard-to-understand areas
+- [ ] Sonar analysis is passing

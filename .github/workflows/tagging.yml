@@ -1,0 +1,16 @@
+name: tagging
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+
+  tag:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: Klemensas/action-autotag@stable
+      with:
+        GITHUB_TOKEN: "${{ secrets.AUTH_TOKEN_GITHUB }}"
+        tag_prefix: "v"
