@@ -104,6 +104,9 @@ dist
 # TernJS port file
 .tern-port
 
+#Sonar scanner
+.scannerwork
+
 # Test Reports
 reports/
 test-report.xml

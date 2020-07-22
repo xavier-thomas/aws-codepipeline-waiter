@@ -11,6 +11,6 @@
 		]
 	],
 	"rootDir": "./src",
-    "testResultsProcessor": "jest-sonar-reporter",
+	"testResultsProcessor": "jest-sonar-reporter",
 	"verbose": true
 }

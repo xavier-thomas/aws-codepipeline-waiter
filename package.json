@@ -29,9 +29,12 @@
       "pre-commit": "yarn precommit"
     }
   },
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-report.xml"
+  },
   "dependencies": {
-    "aws-sdk": "^2.691.0",
-    "jest-sonar-reporter": "^2.0.0"
+    "aws-sdk": "^2.691.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
@@ -50,6 +53,7 @@
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "jest-junit": "^11.0.1",
+    "jest-sonar-reporter": "^2.0.0",
     "prettier": "^2.0.5"
   }
 }
