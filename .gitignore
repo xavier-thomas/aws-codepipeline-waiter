@@ -106,3 +106,4 @@ dist
 
 # Test Reports
 reports/
+test-report.xml

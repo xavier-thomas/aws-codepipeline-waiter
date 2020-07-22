@@ -30,7 +30,8 @@
     }
   },
   "dependencies": {
-    "aws-sdk": "^2.691.0"
+    "aws-sdk": "^2.691.0",
+    "jest-sonar-reporter": "^2.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
