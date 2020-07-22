@@ -3,6 +3,8 @@ name: mutation testing
 on:
   push:
     branches: [ master ]
+  pull_request:
+      types: [opened, synchronize, reopened]
 
 jobs:
 
@@ -21,7 +23,11 @@ jobs:
     - name: Run unit tests
       run: yarn test
 
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
     - name: Run mutation tests
       run: yarn mutate
-      env:
-          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
