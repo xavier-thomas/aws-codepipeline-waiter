@@ -1,5 +1,5 @@
 {
-	"coverageDirectory": "../coverage",
+	"coverageDirectory": "./coverage",
 	"collectCoverage": true,
 	"reporters": [
 		"default",
@@ -8,9 +8,15 @@
 			{
 				"outputDirectory": "reports"
 			}
+		],
+		[
+			"jest-sonar",
+			{
+				"outputDirectory": "reports",
+				"outputName": "test-report.xml",
+				"reportedFilePath": "relative"
+			}
 		]
 	],
-	"rootDir": "./src",
-	"testResultsProcessor": "jest-sonar-reporter",
 	"verbose": true
 }

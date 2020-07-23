@@ -30,6 +30,9 @@ jobs:
       run: yarn test
 
     - name: Test report
+      run: cat ./jest.config.json
+
+    - name: Test report
       run: cat ./reports/test-report.xml
 
     - name: SonarCloud Scan
