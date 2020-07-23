@@ -3,24 +3,26 @@ name: mutation testing
 on:
   push:
     branches: [ master ]
+  pull_request:
+      types: [opened, synchronize, reopened]
 
 jobs:
 
-  mutate:    
+  mutate:
     runs-on: ubuntu-latest
-    
-    steps:    
+
+    steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
-        node-version: 12.x      
+        node-version: 12.x
 
     - name: Install
       run: yarn
-          
+
     - name: Run unit tests
       run: yarn test
-    
+
     - name: Run mutation tests
       run: yarn mutate
       env:

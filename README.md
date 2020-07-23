@@ -1,6 +1,8 @@
 <h1 align="center">Pipeline->Pipeline Monitoring λ</h1>
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-pipeline-monitor-lambda&metric=alert_status)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-pipeline-monitor-lambda)
+![Tests](https://github.com/xavier-thomas/aws-pipeline-monitor-lambda/workflows/auto%20tests/badge.svg)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-pipeline-monitor-lambda&metric=coverage)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-pipeline-monitor-lambda)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fxavier-thomas%2Faws-pipeline-monitor-lambda%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/xavier-thomas/aws-pipeline-monitor-lambda/master)
 [![Dependency Status](https://david-dm.org/xavier-thomas/aws-pipeline-monitor-lambda.svg)](https://david-dm.org/xavier-thomas/aws-pipeline-monitor-lambda)
 

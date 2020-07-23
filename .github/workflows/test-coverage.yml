@@ -1,0 +1,41 @@
+name: tests
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+      types: [opened, synchronize, reopened]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Install
+      run: yarn
+
+    - name: Run unit tests
+      run: yarn test
+
+    # DEBUG STATEMENTS
+    - name: PWD
+      run: pwd
+
+    - name: Test config
+      run: cat ./jest.config.json
+
+    - name: Test report
+      run: cat ./reports/test-report.xml
+
+    # Run sonar analysis
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

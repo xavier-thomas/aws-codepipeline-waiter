@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 1.1.2 - (July 22, 2020)
+### Changed
+- Fixed coverage report for SonarCloud
+
+
 ## 1.1.1 - (July 21, 2020)
 ### Changed
 - Added auto tagging workflow
