@@ -17,24 +17,23 @@ jobs:
       with:
         node-version: 12.x
 
-    - name: LS
-      run: ls -la
-
-    - name: PWD
-      run: pwd
-
     - name: Install
       run: yarn
 
     - name: Run unit tests
       run: yarn test
 
-    - name: Test report
+    # DEBUG STATEMENTS
+    - name: PWD
+      run: pwd
+
+    - name: Test config
       run: cat ./jest.config.json
 
     - name: Test report
       run: cat ./reports/test-report.xml
 
+    # Run sonar analysis
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
