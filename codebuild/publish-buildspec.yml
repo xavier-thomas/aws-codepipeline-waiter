@@ -1,0 +1,64 @@
+version: 0.2
+
+env:
+  parameter-store:
+    GITHUB_AUTH_TOKEN: '/github/rw/id'
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+      python: 3.8
+    commands:
+      - curl -H "Authorization:token $GITHUB_AUTH_TOKEN" https://api.github.com/repos/${RepoOwner}/${RepoName}/statuses/$CODEBUILD_RESOLVED_SOURCE_VERSION -d '{"state":"pending","description":"Build in progress","context":"SAR Publish"}'
+      - pip install aws-sam-cli
+      - yarn install --production --ignore-scripts --prefer-offline
+    finally:
+      # Install phase failures never go to the Post Build phase. Therefore we need a finally block here.
+      # If the Build is failing set build status on the commit to fail.
+      - |
+        if [ "$CODEBUILD_BUILD_SUCCEEDING" != "1" ]; then
+          export build_status="failure";
+          curl -H "Authorization:token $GITHUB_AUTH_TOKEN" https://api.github.com/repos/${RepoOwner}/${RepoName}/statuses/${CODEBUILD_RESOLVED_SOURCE_VERSION} -d '{"state":"'"$build_status"'","description":"Build '"$build_status"'!","context":"SAR Publish"}'
+        fi
+
+  pre_build:
+    commands:
+      - sam validate --template codepipeline-waiter.yaml
+    finally:
+      # pre_build phase failures never go to the Post Build phase. Therefore we need a finally block here.
+      # If the Build is failing set build status on the commit to fail.
+      - |
+        if [ "$CODEBUILD_BUILD_SUCCEEDING" != "1" ]; then
+          export build_status="failure";
+          curl -H "Authorization:token $GITHUB_AUTH_TOKEN" https://api.github.com/repos/${RepoOwner}/${RepoName}/statuses/${CODEBUILD_RESOLVED_SOURCE_VERSION} -d '{"state":"'"$build_status"'","description":"Build '"$build_status"'!","context":"SAR Publish"}'
+        fi
+
+  build:
+    commands:
+      - yarn build
+      - echo "Package Serverless Application"
+      - sam package --s3-bucket ${ARTIFACT_BUCKET} --template-file codepipeline-waiter.yaml --output-template-file ../../packaged-template.yml --s3-prefix "CodePipeline-Waiter"
+
+  post_build:
+    commands:
+      - sam publish --template packaged-template.yml
+      - aws serverlessrepo put-application-policy
+          --region ${AWS_REGION}
+          --application-id arn:aws:serverlessrepo:${AWS_REGION}:${DEPLOYED_ACCOUNT_ID}:applications/CodePipeline-Waiter
+          --statements Principals='*',Actions=Deploy
+    finally:
+      # Post Build Phase's Finally always runs even if the Build Phase is failing
+      # If the build is successful continue
+      # Else If the Build is failing set build status on the commit to fail.
+      - |
+        if [ "$CODEBUILD_BUILD_SUCCEEDING" = "1" ]; then
+         export build_status="success";
+        else
+         export build_status="failure";
+        fi
+        curl -H "Authorization:token $GITHUB_AUTH_TOKEN" https://api.github.com/repos/${RepoOwner}/${RepoName}/statuses/$CODEBUILD_RESOLVED_SOURCE_VERSION -d '{"state":"'"$build_status"'","description":"Build '"$build_status"'!","context":"SAR Publish"}';
+artifacts:
+  discard-paths: yes
+  files:
+    - packaged-template.yml
