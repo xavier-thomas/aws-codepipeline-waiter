@@ -1,13 +1,13 @@
 <h1 align="center">AWS Code Pipeline Waiter λ</h1>
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-pipeline-monitor-lambda&metric=alert_status)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-pipeline-monitor-lambda)
-![Tests](https://github.com/xavier-thomas/aws-pipeline-monitor-lambda/workflows/auto%20tests/badge.svg)
+![Tests](https://github.com/xavier-thomas/aws-codepipeline-waiter/workflows/tests/badge.svg)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-pipeline-monitor-lambda&metric=coverage)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-pipeline-monitor-lambda)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fxavier-thomas%2Faws-codepipeline-waiter%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/xavier-thomas/aws-codepipeline-waiter/master)
-[![Dependency Status](https://david-dm.org/xavier-thomas/aws-pipeline-monitor-lambda.svg)](https://david-dm.org/xavier-thomas/aws-pipeline-monitor-lambda)
+[![Dependency Status](https://david-dm.org/xavier-thomas/aws-codepipeline-waiter.svg)](https://david-dm.org/xavier-thomas/aws-codepipeline-waiter)
 
 
-<h4 align="center">An AWS lambda for a deployment AWS CodePipeline to monitor and wait for a target CodePipeline in the same or another AWS account.</h4>
+<h4 align="center">An AWS lambda that can be called from a deployment AWS CodePipeline to monitor and wait for a target CodePipeline in the same or another AWS account.</h4>
 
 <p align="center">
     <a href="#overview">Overview</a> |

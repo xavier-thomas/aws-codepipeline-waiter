@@ -1,4 +1,4 @@
-name: tests
+name: Tests
 
 on:
   push:
@@ -16,6 +16,11 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+
+    - name: cfn-lint
+      uses: scottbrenner/cfn-lint-action@master
+      with:
+        args: "codepipeline-waiter.yaml"
 
     - name: Install
       run: yarn
