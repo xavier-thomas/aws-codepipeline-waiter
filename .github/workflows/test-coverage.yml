@@ -1,4 +1,4 @@
-name: tests
+name: Tests
 
 on:
   push:
@@ -17,21 +17,16 @@ jobs:
       with:
         node-version: 12.x
 
+    - name: cfn-lint
+      uses: scottbrenner/cfn-lint-action@master
+      with:
+        args: "codepipeline-waiter.yaml"
+
     - name: Install
       run: yarn
 
     - name: Run unit tests
       run: yarn test
-
-    # DEBUG STATEMENTS
-    - name: PWD
-      run: pwd
-
-    - name: Test config
-      run: cat ./jest.config.json
-
-    - name: Test report
-      run: cat ./reports/test-report.xml
 
     # Run sonar analysis
     - name: SonarCloud Scan

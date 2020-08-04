@@ -7,16 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 1.2.0 - (August 04, 2020)
+### Added
+- Auto-Publish to AWS Serverless Application Repo
+
 ## 1.1.2 - (July 22, 2020)
 ### Changed
 - Fixed coverage report for SonarCloud
-
 
 ## 1.1.1 - (July 21, 2020)
 ### Changed
 - Added auto tagging workflow
 - Updated PR template
-
 
 ## 1.1.0 - (July 05, 2020)
 ### Added
@@ -26,7 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 ### Changed
 - Updated Jest Unit Tests
 - Updated Packages
-
 
 ## 🚀 1.0.0 - (Aug 15, 2018)
 ### Initial
