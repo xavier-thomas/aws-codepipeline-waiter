@@ -1,6 +1,6 @@
 {
   "name": "repository-template",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "An AWS lambda for a deployment AWS code-pipeline to monitor and wait for another pipeline.",
   "main": "src/index.js",
   "keywords": [
@@ -17,7 +17,7 @@
     "node": ">=12.0.0"
   },
   "scripts": {
-    "build": "babel ./src -d dist --ignore **/*.test.js,**/mocks.js && cp README.md dist/README.md && cp -R node_modules dist/",
+    "build": "babel ./src -d dist --ignore **/*.test.js,**/mocks.js && cp README.md dist/README.md",
     "lint": "eslint --fix ./src",
     "cfn-lint": "cfn-lint codepipeline-waiter.yaml",
     "lint.ci": "eslint ./src",

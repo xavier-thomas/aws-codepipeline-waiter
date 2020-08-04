@@ -14,7 +14,7 @@ Metadata:
       - Monitoring
     Name: CodePipeline-Waiter
     ReadmeUrl: README.md
-    SemanticVersion: 1.2.0
+    SemanticVersion: 1.2.1
     SourceCodeUrl: https://github.com/xavier-thomas/aws-codepipeline-waiter
 
 
