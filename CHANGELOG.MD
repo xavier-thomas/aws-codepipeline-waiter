@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 1.2.1 - (August 04, 2020)
+### Added
+- Fixed a bug with the publish buildspec
+
 ## 1.2.0 - (August 04, 2020)
 ### Added
 - Auto-Publish to AWS Serverless Application Repo

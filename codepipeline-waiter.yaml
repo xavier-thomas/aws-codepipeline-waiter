@@ -12,10 +12,12 @@ Metadata:
       - CodePipeline
       - Waiter
       - Monitoring
+    LicenseUrl: LICENSE
     Name: CodePipeline-Waiter
     ReadmeUrl: README.md
-    SemanticVersion: 1.2.0
+    SemanticVersion: 1.2.1
     SourceCodeUrl: https://github.com/xavier-thomas/aws-codepipeline-waiter
+    SpdxLicenseId: BSD-3-Clause
 
 
 Resources:
