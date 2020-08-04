@@ -24,6 +24,7 @@ Please also list any relevant details for your test configuration
 #### Versioning
 - [ ] `Changelog` has been updated in the root directory
 - [ ] Version updated on `package.json` in the root directory
+- [ ] Version updated in the `codepipeline-waiter.yaml`
 
 #### PR Etiquette
 - [ ] I've added labels to my PR to describe the change.

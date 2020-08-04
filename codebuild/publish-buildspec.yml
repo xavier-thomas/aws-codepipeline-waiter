@@ -12,7 +12,7 @@ phases:
     commands:
       - curl -H "Authorization:token $GITHUB_AUTH_TOKEN" https://api.github.com/repos/${RepoOwner}/${RepoName}/statuses/$CODEBUILD_RESOLVED_SOURCE_VERSION -d '{"state":"pending","description":"Build in progress","context":"SAR Publish"}'
       - pip install aws-sam-cli
-      - yarn install --production --ignore-scripts --prefer-offline
+      - yarn
     finally:
       # Install phase failures never go to the Post Build phase. Therefore we need a finally block here.
       # If the Build is failing set build status on the commit to fail.
@@ -58,7 +58,3 @@ phases:
          export build_status="failure";
         fi
         curl -H "Authorization:token $GITHUB_AUTH_TOKEN" https://api.github.com/repos/${RepoOwner}/${RepoName}/statuses/$CODEBUILD_RESOLVED_SOURCE_VERSION -d '{"state":"'"$build_status"'","description":"Build '"$build_status"'!","context":"SAR Publish"}';
-artifacts:
-  discard-paths: yes
-  files:
-    - packaged-template.yml
