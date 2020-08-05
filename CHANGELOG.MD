@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 2.0.1 - (August 05, 2020)
+### Changed
+- Updated Documentation linting.
+
 ## 2.0.0 - (August 05, 2020)
 ### Added
 - Conditional Ability to Trigger a child pipeline before waiting for it.

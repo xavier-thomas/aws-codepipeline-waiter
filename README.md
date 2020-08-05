@@ -61,10 +61,10 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:673103718481:applications/CodePipeline-Waiter
-		SemanticVersion: 2.0.0
-	  # Optional Parameter to control the export name of the nested stack
-	  Parameters:
-	    ExportPrefix: !Ref AWS::StackName
+      SemanticVersion: 2.0.0
+      # Optional Parameter to control the export name of the nested stack
+      Parameters:
+        ExportPrefix: !Ref AWS::StackName
 
 ```
 #### Manual Deployment - Not Recommended
@@ -191,8 +191,8 @@ The lambda expects the following UserParameters to be supplied during invocation
 ```JSON
 {
     "targetname": "target-pipeline-name",
-	"assumerolearn": "arn:aws:iam::${TargetAccountID}:role/example-role-for-target-pipeline-name",
-	"trigger": true / false
+    "assumerolearn": "arn:aws:iam::${TargetAccountID}:role/example-role-for-target-pipeline-name",
+    "trigger": true / false
 }
 ```
 
