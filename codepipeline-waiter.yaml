@@ -3,6 +3,13 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 
 
+Parameters:
+  ExportPrefix:
+    Description: A optional unique prefix given to the export names
+    Type: String
+    Default: ""
+
+
 Metadata:
   AWS::ServerlessRepo::Application:
     Author: Xavier Thomas
@@ -15,7 +22,7 @@ Metadata:
     LicenseUrl: LICENSE
     Name: CodePipeline-Waiter
     ReadmeUrl: README.md
-    SemanticVersion: 1.2.2
+    SemanticVersion: 2.0.0
     SourceCodeUrl: https://github.com/xavier-thomas/aws-codepipeline-waiter
     SpdxLicenseId: BSD-3-Clause
 
@@ -54,9 +61,9 @@ Outputs:
   PipelineWaiterLambdaArn:
     Value: !GetAtt PipelineWaiterLambda.Arn
     Export:
-      Name: !Sub ${AWS::StackName}-PipelineWaiterLambdaArn
+      Name: !Sub ${ExportPrefix}PipelineWaiterLambdaArn
 
   PipelineWaiterLambdaName:
     Value: !Ref PipelineWaiterLambda
     Export:
-      Name: !Sub ${AWS::StackName}-PipelineWaiterLambdaName
+      Name: !Sub ${ExportPrefix}PipelineWaiterLambdaName

@@ -4,12 +4,21 @@ import {
 	MOCK_CREDENTIALS_OBJECT,
 	MOCK_EVENT,
 	MOCK_EVENT_INVALID,
+	MOCK_EVENT_TRIGGER_FALSE,
+	MOCK_EVENT_TRIGGER_TRUE,
 	MOCK_FAILED_PIPELINE_STATE,
 	MOCK_PENDING_PIPELINE_STATE,
 	MOCK_SUCCESSFUL_PIPELINE_STATE,
+	MOCK_TARGET_NAME,
 } from './mocks';
 import { assumeRole, getCredentials } from './sts';
-import { continueJobLater, getPipelineState, notifyFailedJob, notifySuccessfulJob } from './codePipeline';
+import {
+	continueJobLater,
+	getPipelineState,
+	notifyFailedJob,
+	notifySuccessfulJob,
+	triggerPipelineRelease,
+} from './codePipeline';
 import { handler } from './index';
 
 jest.mock('./codePipeline');
@@ -33,6 +42,23 @@ describe('[index.js] unit tests', () => {
 			expect(console.info).toHaveBeenCalledWith('Event: ' + JSON.stringify(MOCK_EVENT));
 			expect(console.info).toHaveBeenCalledWith('Context: ' + JSON.stringify(MOCK_CONTEXT));
 			expect(console.info).toHaveBeenCalledWith('Pipeline Status: ' + JSON.stringify(MOCK_FAILED_PIPELINE_STATE));
+		});
+
+		it('must start the child pipeline excution and log the results when trigger is true', async () => {
+			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
+			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
+			await handler(MOCK_EVENT_TRIGGER_TRUE, MOCK_CONTEXT);
+			expect(triggerPipelineRelease).toHaveBeenCalledWith(MOCK_TARGET_NAME, MOCK_CREDENTIALS_OBJECT);
+		});
+
+		it('must not start the child pipeline excution when trigger is false', async () => {
+			await handler(MOCK_EVENT_TRIGGER_FALSE, MOCK_CONTEXT);
+			expect(triggerPipelineRelease).not.toHaveBeenCalled();
+		});
+
+		it('must not start the child pipeline excution when trigger is undefined', async () => {
+			await handler(MOCK_EVENT, MOCK_CONTEXT);
+			expect(triggerPipelineRelease).not.toHaveBeenCalled();
 		});
 
 		it('must return a failure signal to the invoking pipeline if there is an error during execution of the handler', async () => {

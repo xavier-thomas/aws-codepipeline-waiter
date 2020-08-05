@@ -27,7 +27,7 @@ describe('[sts.js] unit tests', () => {
 			const response = await assumeRole(MOCK_ASSUME_ROLE_ARN);
 			expect(mockAssumeRole).toHaveBeenCalledWith({
 				RoleArn: MOCK_ASSUME_ROLE_ARN,
-				RoleSessionName: 'PipelineMonitoringLambda',
+				RoleSessionName: 'PipelineWaiterLambda',
 			});
 			expect(response).toEqual(MOCK_ASSUMED_ROLE_DATA);
 		});

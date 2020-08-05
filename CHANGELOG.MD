@@ -7,36 +7,42 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
-## 1.2.2 - (August 04, 2020)
+## 2.0.0 - (August 05, 2020)
 ### Added
-- Fixed licence information
+- Conditional Ability to Trigger a child pipeline before waiting for it.
+### Changed
+- Updated Documentation.
+
+## 1.2.2 - (August 04, 2020)
+### Changed
+- Fixed licence information.
 
 ## 1.2.1 - (August 04, 2020)
-### Added
-- Fixed a bug with the publish buildspec
+### Changed
+- Fixed a bug with the publish buildspec.
 
 ## 1.2.0 - (August 04, 2020)
 ### Added
-- Auto-Publish to AWS Serverless Application Repo
+- Auto-Publish to AWS Serverless Application Repo.
 
 ## 1.1.2 - (July 22, 2020)
 ### Changed
-- Fixed coverage report for SonarCloud
+- Fixed coverage report for SonarCloud.
 
 ## 1.1.1 - (July 21, 2020)
 ### Changed
-- Added auto tagging workflow
-- Updated PR template
+- Added auto tagging workflow.
+- Updated PR template.
 
 ## 1.1.0 - (July 05, 2020)
 ### Added
-- Enabled Mutation Tests with Stryker
-    - Added Mutation Testing Score Badge to README
-- Enabled Jest-Junit to export test reports
+- Enabled Mutation Tests with Stryker.
+    - Added Mutation Testing Score Badge to README.
+- Enabled Jest-Junit to export test reports.
 ### Changed
-- Updated Jest Unit Tests
-- Updated Packages
+- Updated Jest Unit Tests.
+- Updated Packages.
 
 ## 🚀 1.0.0 - (Aug 15, 2018)
 ### Initial
-- Pipeline Monitor lambda released under closed source
+- Pipeline Monitor lambda released under closed source.
