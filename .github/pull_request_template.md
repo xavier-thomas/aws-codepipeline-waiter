@@ -25,6 +25,7 @@ Please also list any relevant details for your test configuration
 - [ ] `Changelog` has been updated in the root directory
 - [ ] Version updated on `package.json` in the root directory
 - [ ] Version updated in the `codepipeline-waiter.yaml`
+- [ ] Version updated in the `README.md` file's deploying lambda block.
 
 #### PR Etiquette
 - [ ] I've added labels to my PR to describe the change.
