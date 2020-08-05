@@ -143,3 +143,7 @@ export const MOCK_PENDING_PIPELINE_STATE = {
 		},
 	],
 };
+
+export const MOCK_PIPELINE_START_RESULT = {
+	pipelineExecutionId: 'aapban-awdasda-bawsawd-avasadw',
+};

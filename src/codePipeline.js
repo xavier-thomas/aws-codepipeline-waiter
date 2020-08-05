@@ -64,7 +64,21 @@ const getPipelineState = async (targetName, credentials) => {
 	return CodePipeline.getPipelineState(options).promise();
 };
 
+/**
+ * Start an execution of a given AWS CodePipeline
+ * @param {object} targetName: The name of the target AWS CodePipeline
+ * @param {object} credentials: The AWS Credentials object with the correct cross account permissions
+ */
+const triggerPipelineRelease = async (targetName, credentials) => {
+	CodePipeline = new AWS.CodePipeline({ credentials: credentials });
+	const options = {
+		name: targetName,
+	};
+	return CodePipeline.startPipelineExecution(options).promise();
+};
+
 module.exports.notifyFailedJob = notifyFailedJob;
 module.exports.notifySuccessfulJob = notifySuccessfulJob;
 module.exports.continueJobLater = continueJobLater;
 module.exports.getPipelineState = getPipelineState;
+module.exports.triggerPipelineRelease = triggerPipelineRelease;

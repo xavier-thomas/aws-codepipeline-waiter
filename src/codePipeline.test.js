@@ -5,16 +5,24 @@ import {
 	MOCK_EVENT,
 	MOCK_INVOKE_ID,
 	MOCK_PIPELINE_ID,
+	MOCK_PIPELINE_START_RESULT,
 	MOCK_SUCCESSFUL_PIPELINE_STATE,
 	MOCK_TARGET_NAME,
 } from './mocks';
-import { continueJobLater, getPipelineState, notifyFailedJob, notifySuccessfulJob } from './codePipeline';
+import {
+	continueJobLater,
+	getPipelineState,
+	notifyFailedJob,
+	notifySuccessfulJob,
+	triggerPipelineRelease,
+} from './codePipeline';
 import AWS from 'aws-sdk';
 
 describe('[codePipeline.js] unit tests', () => {
 	const mock_getPipelineState = jest.fn();
 	const mock_putJobFailureResult = jest.fn();
 	const mock_putJobSuccessResult = jest.fn();
+	const mock_startPipelineExecution = jest.fn();
 
 	beforeEach(() => {
 		jest.restoreAllMocks();
@@ -22,6 +30,7 @@ describe('[codePipeline.js] unit tests', () => {
 			getPipelineState: mock_getPipelineState,
 			putJobFailureResult: mock_putJobFailureResult,
 			putJobSuccessResult: mock_putJobSuccessResult,
+			startPipelineExecution: mock_startPipelineExecution,
 		}));
 	});
 
@@ -87,6 +96,22 @@ describe('[codePipeline.js] unit tests', () => {
 				name: MOCK_TARGET_NAME,
 			});
 			expect(response).toEqual(MOCK_SUCCESSFUL_PIPELINE_STATE);
+		});
+	});
+
+	describe('[triggerPipelineRelease] when a valid target and credentials are passed', () => {
+		it('must trigger an execution of an AWS CodePipeline', async () => {
+			mock_startPipelineExecution.mockReturnValue({
+				promise: jest.fn().mockResolvedValue(MOCK_PIPELINE_START_RESULT),
+			});
+			const response = await triggerPipelineRelease(MOCK_TARGET_NAME, MOCK_CREDENTIALS_OBJECT);
+			expect(AWS.CodePipeline).toHaveBeenCalledWith({
+				credentials: MOCK_CREDENTIALS_OBJECT,
+			});
+			expect(mock_startPipelineExecution).toHaveBeenCalledWith({
+				name: MOCK_TARGET_NAME,
+			});
+			expect(response).toEqual(MOCK_PIPELINE_START_RESULT);
 		});
 	});
 });
