@@ -4,7 +4,7 @@ let STS;
 
 /**
  * Assumes a cross account role and returns the AWS credentials object.
- * @param {object} assumeRoleArn: The ARN of the AWS IAM role
+ * @param {string} assumeRoleArn: The ARN of the AWS IAM role
  * @returns {object} :The Data returned by the STS Assume Role API call
  */
 const assumeRole = async (assumeRoleArn) => {
@@ -18,7 +18,7 @@ const assumeRole = async (assumeRoleArn) => {
 
 /**
  * Assumes a cross account role and returns the AWS credentials object.
- * @param {object} assumeRoleData: The Data returned by the STS Assume Role API call
+ * @param {string} assumeRoleData: The Data returned by the STS Assume Role API call
  * @returns {object} :The Credentials Object returned by AWS STS.GetCredentials
  */
 const getCredentials = async (assumeRoleData) => {

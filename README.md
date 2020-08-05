@@ -61,7 +61,8 @@ The lambda expects the following UserParameters to be supplied during invocation
 ```JSON
 {
     "targetname": "target-pipeline-name",
-    "assumerolename": "arn:aws:iam::${AccountId}:role/PipelineMonitoringRole-${Tier}"
+	"assumerolename": "arn:aws:iam::${AccountId}:role/PipelineMonitoringRole-${Tier}",
+	"trigger": true / false
 }
 ```
 

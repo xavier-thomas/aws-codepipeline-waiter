@@ -42,6 +42,18 @@ export const MOCK_USER_PARAMETERS = {
 	targetname: MOCK_TARGET_NAME,
 };
 
+export const MOCK_USER_PARAMETERS_TRIGGER_TRUE = {
+	assumerolename: MOCK_ASSUME_ROLE_ARN,
+	targetname: MOCK_TARGET_NAME,
+	trigger: true,
+};
+
+export const MOCK_USER_PARAMETERS_TRIGGER_FALSE = {
+	assumerolename: MOCK_ASSUME_ROLE_ARN,
+	targetname: MOCK_TARGET_NAME,
+	trigger: false,
+};
+
 export const MOCK_PIPELINE_ID = '2989f000-275f-4031-82bf-cab460511cc4';
 
 export const MOCK_INVOKE_ID = '15c14512-62df-4db4-8588-9c786c572a83';
@@ -52,6 +64,32 @@ export const MOCK_EVENT = {
 			actionConfiguration: {
 				configuration: {
 					UserParameters: JSON.stringify(MOCK_USER_PARAMETERS),
+				},
+			},
+		},
+		id: MOCK_PIPELINE_ID,
+	},
+};
+
+export const MOCK_EVENT_TRIGGER_TRUE = {
+	'CodePipeline.job': {
+		data: {
+			actionConfiguration: {
+				configuration: {
+					UserParameters: JSON.stringify(MOCK_USER_PARAMETERS_TRIGGER_TRUE),
+				},
+			},
+		},
+		id: MOCK_PIPELINE_ID,
+	},
+};
+
+export const MOCK_EVENT_TRIGGER_FALSE = {
+	'CodePipeline.job': {
+		data: {
+			actionConfiguration: {
+				configuration: {
+					UserParameters: JSON.stringify(MOCK_USER_PARAMETERS_TRIGGER_FALSE),
 				},
 			},
 		},

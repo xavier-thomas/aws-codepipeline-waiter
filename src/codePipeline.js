@@ -4,8 +4,14 @@ let CodePipeline;
 
 /**
  * Notifies AWS CodePipeline if the target pipeline has failed
- * @param {object} event: The AWS event object
- * @param {object} context: The AWS context object
+ * @param {Object} event :Code Pipeline Lambda Invoke Event
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-Lambda.html#action-reference-Lambda-event
+ * @param {string} event.targetname - The name of the Child / Slave Pipeline to wait for
+ * @param {string} event.assumerolename - The name of the monitoring role to assume. This can be a role in another AWS account for Cross Account trigger & waiter
+ * @param {boolean} event.trigger - Should be Child Pipeline be started first before waiting for it.
+ *
+ * @param {Object} context :Lambda Invoke Context
+ * https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
  * @param {string} message: A message to describe the failure
  * @returns {promise} :HTTPS Status 200 and empty body
  */
@@ -25,7 +31,13 @@ const notifyFailedJob = async (event, context, message) => {
 /**
  * Notifies AWS CodePipeline if the target pipeline has completed
  * successfully
- * @param {object} event: The AWS event object
+ * @param {Object} event :Code Pipeline Lambda Invoke Event
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-Lambda.html#action-reference-Lambda-event
+ * @param {string} event.targetname - The name of the Child / Slave Pipeline to wait for
+ * @param {string} event.assumerolename - The name of the monitoring role to assume. This can be a role in another AWS account for Cross Account trigger & waiter
+ * @param {boolean} event.trigger - Should be Child Pipeline be started first before waiting for it.
+ *
+ * https://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
  * @returns {promise} :HTTPS Status 200 and empty body
  */
 const notifySuccessfulJob = async (event) => {
@@ -38,7 +50,12 @@ const notifySuccessfulJob = async (event) => {
 
 /**
  * Notifies AWS CodePipeline if the target pipeline is still in progresss
- * @param {object} event: The AWS event object
+ * @param {Object} event :Code Pipeline Lambda Invoke Event
+ * https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-Lambda.html#action-reference-Lambda-event
+ * @param {string} event.targetname - The name of the Child / Slave Pipeline to wait for
+ * @param {string} event.assumerolename - The name of the monitoring role to assume. This can be a role in another AWS account for Cross Account trigger & waiter
+ * @param {boolean} event.trigger - Should be Child Pipeline be started first before waiting for it.
+ *
  * @returns {promise} :HTTPS Status 200 and empty body
  */
 const continueJobLater = async (event) => {
@@ -52,7 +69,7 @@ const continueJobLater = async (event) => {
 
 /**
  * Get the execution status of the latest run of a given AWS CodePipeline
- * @param {object} targetName: The name of the target AWS CodePipeline
+ * @param {string} targetName: The name of the target AWS CodePipeline
  * @param {object} credentials: The AWS Credentials object with the correct cross account permisions
  * @returns {object} pipelineState: Returns the Pipeline State
  */
@@ -66,7 +83,7 @@ const getPipelineState = async (targetName, credentials) => {
 
 /**
  * Start an execution of a given AWS CodePipeline
- * @param {object} targetName: The name of the target AWS CodePipeline
+ * @param {string} targetName: The name of the target AWS CodePipeline
  * @param {object} credentials: The AWS Credentials object with the correct cross account permissions
  */
 const triggerPipelineRelease = async (targetName, credentials) => {
