@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 2.0.2 - (August 05, 2020)
+### Changed
+- Added Tags for pipeline waiter SAR app
+- Updated packages
+
 ## 2.0.1 - (August 05, 2020)
 ### Changed
 - Updated Documentation linting.

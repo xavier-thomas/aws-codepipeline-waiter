@@ -1,8 +1,8 @@
 <h1 align="center">AWS Code Pipeline Waiter λ</h1>
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-pipeline-monitor-lambda&metric=alert_status)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-pipeline-monitor-lambda)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-codepipeline-waiter&metric=alert_status)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-codepipeline-waiter)
 ![Tests](https://github.com/xavier-thomas/aws-codepipeline-waiter/workflows/tests/badge.svg)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-pipeline-monitor-lambda&metric=coverage)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-pipeline-monitor-lambda)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-codepipeline-waiter&metric=coverage)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-codepipeline-waiter)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fxavier-thomas%2Faws-codepipeline-waiter%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/xavier-thomas/aws-codepipeline-waiter/master)
 [![Dependency Status](https://david-dm.org/xavier-thomas/aws-codepipeline-waiter.svg)](https://david-dm.org/xavier-thomas/aws-codepipeline-waiter)
 
@@ -15,6 +15,7 @@
     <a href="#deploying-the-lambda">Deploying the Lambda</a> |
     <a href="#permissions">Permissions</a> |
     <a href="#invoking-the-lambda">Invoking the Lambda</a> |
+    <a href="#how-this-works">How this works</a> |
     <a href="#contributing">Contributing</a> |
   	<a href="#authors">Authors</a> |
   	<a href="#licence">Licence</a>
@@ -61,7 +62,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:673103718481:applications/CodePipeline-Waiter
-      SemanticVersion: 2.0.1
+      SemanticVersion: 2.0.2
       # Optional Parameter to control the export name of the nested stack
       Parameters:
         ExportPrefix: !Ref AWS::StackName
@@ -201,7 +202,7 @@ The lambda expects the following UserParameters to be supplied during invocation
 * An optional boolean flag when set to true will attempt to start the pipeline before waiting for it. Defaults to false.
 
 
-### How it works
+## How this works
 
 
 Invoking the lambda from a pipeline will:
