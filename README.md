@@ -1,8 +1,8 @@
 <h1 align="center">AWS Code Pipeline Waiter λ</h1>
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-pipeline-monitor-lambda&metric=alert_status)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-pipeline-monitor-lambda)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-codepipeline-waiter&metric=alert_status)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-codepipeline-waiter)
 ![Tests](https://github.com/xavier-thomas/aws-codepipeline-waiter/workflows/tests/badge.svg)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-pipeline-monitor-lambda&metric=coverage)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-pipeline-monitor-lambda)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=xavier-thomas_aws-codepipeline-waiter&metric=coverage)](https://sonarcloud.io/dashboard?id=xavier-thomas_aws-codepipeline-waiter)
 [![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fxavier-thomas%2Faws-codepipeline-waiter%2Fmaster)](https://dashboard.stryker-mutator.io/reports/github.com/xavier-thomas/aws-codepipeline-waiter/master)
 [![Dependency Status](https://david-dm.org/xavier-thomas/aws-codepipeline-waiter.svg)](https://david-dm.org/xavier-thomas/aws-codepipeline-waiter)
 
