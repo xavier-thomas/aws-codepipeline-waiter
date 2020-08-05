@@ -61,7 +61,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:673103718481:applications/CodePipeline-Waiter
-      SemanticVersion: 2.0.0
+      SemanticVersion: 2.0.1
       # Optional Parameter to control the export name of the nested stack
       Parameters:
         ExportPrefix: !Ref AWS::StackName
