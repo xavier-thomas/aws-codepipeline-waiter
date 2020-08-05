@@ -15,6 +15,7 @@
     <a href="#deploying-the-lambda">Deploying the Lambda</a> |
     <a href="#permissions">Permissions</a> |
     <a href="#invoking-the-lambda">Invoking the Lambda</a> |
+    <a href="#how-this-works">How this works</a> |
     <a href="#contributing">Contributing</a> |
   	<a href="#authors">Authors</a> |
   	<a href="#licence">Licence</a>
@@ -201,7 +202,7 @@ The lambda expects the following UserParameters to be supplied during invocation
 * An optional boolean flag when set to true will attempt to start the pipeline before waiting for it. Defaults to false.
 
 
-### How it works
+## How this works
 
 
 Invoking the lambda from a pipeline will:
