@@ -13,7 +13,7 @@ import {
  * @param {Object} event :Code Pipeline Lambda Invoke Event
  * https://docs.aws.amazon.com/codepipeline/latest/userguide/action-reference-Lambda.html#action-reference-Lambda-event
  * @param {string} event.targetname - The name of the Child / Slave Pipeline to wait for
- * @param {string} event.assumerolename - The name of the monitoring role to assume. This can be a role in another AWS account for Cross Account trigger & waiter
+ * @param {string} event.assumerolearn - The name of the monitoring role to assume. This can be a role in another AWS account for Cross Account trigger & waiter
  * @param {boolean} event.trigger - Should be Child Pipeline be started first before waiting for it.
  *
  * @param {Object} context :Lambda Invoke Context
@@ -32,7 +32,7 @@ exports.handler = async (event, context) => {
 	if (userParameters) {
 		try {
 			const isTriggered = userParameters.trigger ? userParameters.trigger : false;
-			const data = await assumeRole(userParameters.assumerolename);
+			const data = await assumeRole(userParameters.assumerolearn);
 			const credentials = await getCredentials(data);
 
 			if (isTriggered) {

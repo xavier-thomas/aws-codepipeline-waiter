@@ -5,7 +5,7 @@ export const MOCK_ASSUMED_ROLE_DATA = {
 		RequestId: 'a817893e-9b25-11e8-90e6-6f826b9ef79a',
 	},
 	AssumedRoleUser: {
-		Arn: 'arn:aws:sts::123456789012:assumed-role/FakeRole/PipelineMonitoringLambda',
+		Arn: 'arn:aws:sts::123456789012:assumed-role/FakeRole/PipelineWaiterLambda',
 		AssumedRoleId: 'ARO123EXAMPLE123:FakeRole',
 	},
 	Credentials: {
