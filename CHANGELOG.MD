@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 2.0.4 - (August 06, 2020)
+### Changed
+- Fixed Lambda function name
+
 ## 2.0.3 - (August 06, 2020)
 ### Changed
 - corrected Lambda handler reference
