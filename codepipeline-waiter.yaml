@@ -24,7 +24,7 @@ Metadata:
     LicenseUrl: LICENSE
     Name: CodePipeline-Waiter
     ReadmeUrl: README.md
-    SemanticVersion: 2.0.2
+    SemanticVersion: 2.0.3
     SourceCodeUrl: https://github.com/xavier-thomas/aws-codepipeline-waiter
     SpdxLicenseId: BSD-3-Clause
 
@@ -33,7 +33,7 @@ Resources:
   PipelineWaiterLambda:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/index.handler
+      Handler: index.handler
       Runtime: nodejs12.x
       CodeUri: ./dist
       MemorySize: 128
