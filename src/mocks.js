@@ -84,6 +84,20 @@ export const MOCK_EVENT_TRIGGER_TRUE = {
 	},
 };
 
+export const MOCK_EVENT_TRIGGER_TRUE_CONTINUE = {
+	'CodePipeline.job': {
+		data: {
+			actionConfiguration: {
+				configuration: {
+					UserParameters: JSON.stringify(MOCK_USER_PARAMETERS_TRIGGER_TRUE),
+				},
+			},
+			continuationToken: '{"previous_job_id":"1101f2d5-118b-4d63-914b-e823f5947839"}',
+		},
+		id: MOCK_PIPELINE_ID,
+	},
+};
+
 export const MOCK_EVENT_TRIGGER_FALSE = {
 	'CodePipeline.job': {
 		data: {
@@ -119,18 +133,50 @@ export const MOCK_SUCCESSFUL_PIPELINE_STATE = {
 		{
 			stageName: 'Source',
 			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
 				status: 'Succeeded',
 			},
 		},
 		{
 			stageName: 'Build',
 			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
 				status: 'Succeeded',
 			},
 		},
 		{
 			stageName: 'Deploy',
 			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
+				status: 'Succeeded',
+			},
+		},
+	],
+};
+
+// This mock is used to test an edge case that can occur when an inprogress pipeline returns at the exact moment...
+// ... before the current execution ID is started on a previously successful stage
+export const MOCK_PENDING_EDGE_CASE_PIPELINE_STATE = {
+	pipelineName: 'FakePipeline',
+	stageStates: [
+		{
+			stageName: 'Source',
+			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
+				status: 'Succeeded',
+			},
+		},
+		{
+			stageName: 'Build',
+			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
+				status: 'Succeeded',
+			},
+		},
+		{
+			stageName: 'Deploy',
+			latestExecution: {
+				pipelineExecutionId: '008ec227-618b-4fc6-be2b-31e9d5b9a51f',
 				status: 'Succeeded',
 			},
 		},
@@ -143,18 +189,48 @@ export const MOCK_FAILED_PIPELINE_STATE = {
 		{
 			stageName: 'Source',
 			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
 				status: 'Succeeded',
 			},
 		},
 		{
 			stageName: 'Build',
 			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
 				status: 'Failed',
 			},
 		},
 		{
 			stageName: 'Deploy',
 			latestExecution: {
+				pipelineExecutionId: '008ec227-618b-4fc6-be2b-31e9d5b9a51f',
+				status: 'Succeeded',
+			},
+		},
+	],
+};
+
+export const MOCK_STOPPED_PIPELINE_STATE = {
+	pipelineName: 'FakePipeline',
+	stageStates: [
+		{
+			stageName: 'Source',
+			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
+				status: 'Succeeded',
+			},
+		},
+		{
+			stageName: 'Build',
+			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
+				status: 'Stopped',
+			},
+		},
+		{
+			stageName: 'Deploy',
+			latestExecution: {
+				pipelineExecutionId: '008ec227-618b-4fc6-be2b-31e9d5b9a51f',
 				status: 'Succeeded',
 			},
 		},
@@ -167,21 +243,27 @@ export const MOCK_PENDING_PIPELINE_STATE = {
 		{
 			stageName: 'Source',
 			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
 				status: 'Succeeded',
 			},
 		},
 		{
 			stageName: 'Build',
 			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
 				status: 'InProgress',
 			},
 		},
 		{
 			stageName: 'Deploy',
+			latestExecution: {
+				pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
+				status: 'InProgress',
+			},
 		},
 	],
 };
 
 export const MOCK_PIPELINE_START_RESULT = {
-	pipelineExecutionId: 'aapban-awdasda-bawsawd-avasadw',
+	pipelineExecutionId: '09ea330d-2c95-4512-b9b9-e94b1f212760',
 };

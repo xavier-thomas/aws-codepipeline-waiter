@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 2.1.0 - (August 06, 2020)
+### Changed
+- Added feature to return failed pipeline state when a target pipeline was stopped manually.
+- Fixed a bug that caused a pipeline to be triggered more than once.
+- Fixed a edge case that could return a successful state for an in-progress pipeline
+
 ## 2.0.4 - (August 06, 2020)
 ### Changed
 - Fixed Lambda function name
