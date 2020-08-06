@@ -62,7 +62,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:673103718481:applications/CodePipeline-Waiter
-      SemanticVersion: 2.0.2
+      SemanticVersion: 2.0.3
       # Optional Parameter to control the export name of the nested stack
       Parameters:
         ExportPrefix: !Ref AWS::StackName
@@ -177,9 +177,9 @@ If you are not using Cloudformation, provision a CodePipeline stage to invoke th
                 #If they are in another account, they need the correct trust permissions. See above section in readme.
                 UserParameters: |
                   {
-                  "targetname":"target-pipeline-name", #Required
-                  "assumerolearn":"arn:aws:iam::123456789:role/example-role-for-target-pipeline-name", #Required
-                  "trigger": true #Optional. Defaults to false
+                    "targetname":"target-pipeline-name", //Required
+                    "assumerolearn":"arn:aws:iam::123456789:role/example-role-for-target-pipeline-name", //Required
+                    "trigger": true //Optional. Defaults to false
                   }
               RunOrder: 1
 
@@ -191,9 +191,9 @@ The Lambda needs to receive the following as an **UserParameters** object on the
 The lambda expects the following UserParameters to be supplied during invocation:
 ```JSON
 {
-    "targetname": "target-pipeline-name",
-    "assumerolearn": "arn:aws:iam::${TargetAccountID}:role/example-role-for-target-pipeline-name",
-    "trigger": true / false
+    "targetname": "target-pipeline-name", //Required
+    "assumerolearn": "arn:aws:iam::${TargetAccountID}:role/example-role-for-target-pipeline-name", //#Required
+    "trigger": true / false //Optional. Defaults to false
 }
 ```
 
