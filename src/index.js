@@ -35,7 +35,10 @@ exports.handler = async (event, context) => {
 			const data = await assumeRole(userParameters.assumerolearn);
 			const credentials = await getCredentials(data);
 
-			if (isTriggered) {
+			// Only trigger on the first invocation of the lambda.
+			// i.e. it's not a continued job with a continuation token.
+			const continuationToken = event['CodePipeline.job'].data.continuationToken ? true : false;
+			if (isTriggered && continuationToken !== true) {
 				await triggerPipelineRelease(userParameters.targetname, credentials);
 			}
 

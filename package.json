@@ -1,6 +1,6 @@
 {
   "name": "aws-codepipeline-waiter",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "An AWS lambda for a deployment AWS code-pipeline to monitor and wait for another pipeline.",
   "main": "src/index.js",
   "keywords": [

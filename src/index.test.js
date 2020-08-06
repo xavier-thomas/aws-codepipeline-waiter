@@ -6,6 +6,7 @@ import {
 	MOCK_EVENT_INVALID,
 	MOCK_EVENT_TRIGGER_FALSE,
 	MOCK_EVENT_TRIGGER_TRUE,
+	MOCK_EVENT_TRIGGER_TRUE_CONTINUE,
 	MOCK_FAILED_PIPELINE_STATE,
 	MOCK_PENDING_PIPELINE_STATE,
 	MOCK_SUCCESSFUL_PIPELINE_STATE,
@@ -44,11 +45,16 @@ describe('[index.js] unit tests', () => {
 			expect(console.info).toHaveBeenCalledWith('Pipeline Status: ' + JSON.stringify(MOCK_FAILED_PIPELINE_STATE));
 		});
 
-		it('must start the child pipeline excution and log the results when trigger is true', async () => {
+		it('must start the child pipeline excution and log the results when trigger is true and no continuation token is present', async () => {
 			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
 			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
 			await handler(MOCK_EVENT_TRIGGER_TRUE, MOCK_CONTEXT);
 			expect(triggerPipelineRelease).toHaveBeenCalledWith(MOCK_TARGET_NAME, MOCK_CREDENTIALS_OBJECT);
+		});
+
+		it('must not start the child pipeline excution when trigger is true but continuation token is present', async () => {
+			await handler(MOCK_EVENT_TRIGGER_TRUE_CONTINUE, MOCK_CONTEXT);
+			expect(triggerPipelineRelease).not.toHaveBeenCalled();
 		});
 
 		it('must not start the child pipeline excution when trigger is false', async () => {

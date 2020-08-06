@@ -84,6 +84,20 @@ export const MOCK_EVENT_TRIGGER_TRUE = {
 	},
 };
 
+export const MOCK_EVENT_TRIGGER_TRUE_CONTINUE = {
+	'CodePipeline.job': {
+		data: {
+			actionConfiguration: {
+				configuration: {
+					UserParameters: JSON.stringify(MOCK_USER_PARAMETERS_TRIGGER_TRUE),
+				},
+			},
+			continuationToken: '{"previous_job_id":"1101f2d5-118b-4d63-914b-e823f5947839"}',
+		},
+		id: MOCK_PIPELINE_ID,
+	},
+};
+
 export const MOCK_EVENT_TRIGGER_FALSE = {
 	'CodePipeline.job': {
 		data: {
