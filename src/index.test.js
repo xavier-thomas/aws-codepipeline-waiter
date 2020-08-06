@@ -8,6 +8,7 @@ import {
 	MOCK_EVENT_TRIGGER_TRUE,
 	MOCK_EVENT_TRIGGER_TRUE_CONTINUE,
 	MOCK_FAILED_PIPELINE_STATE,
+	MOCK_PENDING_EDGE_CASE_PIPELINE_STATE,
 	MOCK_PENDING_PIPELINE_STATE,
 	MOCK_STOPPED_PIPELINE_STATE,
 	MOCK_SUCCESSFUL_PIPELINE_STATE,
@@ -94,6 +95,17 @@ describe('[index.js] unit tests', () => {
 			expect(continueJobLater).not.toHaveBeenCalled();
 			expect(notifySuccessfulJob).toHaveBeenCalledWith(MOCK_EVENT);
 			expect(console.info).toHaveBeenCalledWith('Pipeline FakePipeline Completed Successfully.');
+		});
+
+		it('must return a continuation token signal to the invoking pipeline when the target pipeline is in progress with all stages showing successful but execution ID is different on the stages', async () => {
+			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
+			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
+			getPipelineState.mockResolvedValue(MOCK_PENDING_EDGE_CASE_PIPELINE_STATE);
+			await handler(MOCK_EVENT, MOCK_CONTEXT);
+			expect(notifyFailedJob).not.toHaveBeenCalled();
+			expect(notifySuccessfulJob).not.toHaveBeenCalled();
+			expect(continueJobLater).toHaveBeenCalledWith(MOCK_EVENT);
+			expect(console.info).toHaveBeenCalledWith('Waiting for Pipeline FakePipeline to complete.');
 		});
 
 		it('must return a continuation token signal to the invoking pipeline when the target pipeline is in progress', async () => {

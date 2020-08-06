@@ -46,8 +46,13 @@ exports.handler = async (event, context) => {
 			console.info('Pipeline Status: ' + JSON.stringify(pipelineStatus));
 
 			let isPipelineSuccessful = true;
+			let isPipelineExecutionIdDifferent = false;
+			const currentPipelineExecution = pipelineStatus.stageStates[0].latestExecution.pipelineExecutionId;
 			for (let i = 0; i < pipelineStatus.stageStates.length; i++) {
 				const pipelineState = pipelineStatus.stageStates[i].latestExecution.status;
+				if (currentPipelineExecution !== pipelineStatus.stageStates[i].latestExecution.pipelineExecutionId) {
+					isPipelineExecutionIdDifferent = true;
+				}
 				if (pipelineState === 'InProgress') {
 					isPipelineSuccessful = false;
 					console.info('Waiting for Pipeline ' + userParameters.targetname + ' to complete.');
@@ -60,8 +65,17 @@ exports.handler = async (event, context) => {
 				}
 			}
 			if (isPipelineSuccessful) {
-				console.info('Pipeline ' + userParameters.targetname + ' Completed Successfully.');
-				await notifySuccessfulJob(event);
+				// This is to catch an edge case
+				// If all the stages show success but the pipeline execution ID is different for the last few stages
+				// Then the pipeline execution is still running but the lambda has got a pipeline state at the exact...
+				// ... moment when one stage completed and the next (previously successful) stage is yet to start
+				if (isPipelineExecutionIdDifferent) {
+					console.info('Waiting for Pipeline ' + userParameters.targetname + ' to complete.');
+					await continueJobLater(event);
+				} else {
+					console.info('Pipeline ' + userParameters.targetname + ' Completed Successfully.');
+					await notifySuccessfulJob(event);
+				}
 			}
 		} catch (err) {
 			console.error('An error occurred while monitoring the pipeline ' + userParameters.targetname, err);
