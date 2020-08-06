@@ -62,7 +62,7 @@ Resources:
     Properties:
       Location:
         ApplicationId: arn:aws:serverlessrepo:us-east-1:673103718481:applications/CodePipeline-Waiter
-      SemanticVersion: 2.0.3
+      SemanticVersion: 2.0.4
       # Optional Parameter to control the export name of the nested stack
       Parameters:
         ExportPrefix: !Ref AWS::StackName
@@ -109,7 +109,10 @@ Although not recommended, you can also provisionally reduce the security provide
             AWS:
               # Note 1: This Lambda always creates an role session with the name "PipelineWaiterLambda"
               # Note 2: The InvokingAccountID is the account ID where the Lambda resides. It can be the same account or a different account (in the case of cross account pipelines)
-              - !Sub 'arn:aws:sts::${InvokingAccountID}:assumed-role/${RoleNameCreatedByThelambda}/PipelineWaiterLambda'
+              # Note 3: You can also pin this to the lambda's session by using the following
+              # !Sub 'arn:aws:sts::${InvokingAccountID}:assumed-role/${RoleNameCreatedByThelambda}/PipelineWaiterLambda'
+              # Note 4: The RoleCreatedByLambda can be found in the cloudformation stack outputs for the CodePipelineWaiter
+              - !Sub "arn:aws:iam::${InvokingAccountID}:role/${RoleCreatedByLambda}"
           Action:
             - sts:AssumeRole
       Policies:
