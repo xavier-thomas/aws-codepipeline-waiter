@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
-## 2.0.5 - (August 06, 2020)
+## 2.1.0 - (August 06, 2020)
 ### Changed
 - Fixed a bug that caused a pipeline to be triggered more than once.
+- Added feature to return
 
 ## 2.0.4 - (August 06, 2020)
 ### Changed

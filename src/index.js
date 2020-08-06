@@ -47,12 +47,13 @@ exports.handler = async (event, context) => {
 
 			let isPipelineSuccessful = true;
 			for (let i = 0; i < pipelineStatus.stageStates.length; i++) {
-				if (pipelineStatus.stageStates[i].latestExecution.status === 'InProgress') {
+				const pipelineState = pipelineStatus.stageStates[i].latestExecution.status;
+				if (pipelineState === 'InProgress') {
 					isPipelineSuccessful = false;
 					console.info('Waiting for Pipeline ' + userParameters.targetname + ' to complete.');
 					await continueJobLater(event);
 					break;
-				} else if (pipelineStatus.stageStates[i].latestExecution.status === 'Failed') {
+				} else if (pipelineState === 'Failed' || pipelineState === 'Stopped') {
 					isPipelineSuccessful = false;
 					await notifyFailedJob(event, context, userParameters.targetname + ' has failed.');
 					break;

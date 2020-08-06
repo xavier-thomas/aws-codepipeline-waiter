@@ -175,6 +175,30 @@ export const MOCK_FAILED_PIPELINE_STATE = {
 	],
 };
 
+export const MOCK_STOPPED_PIPELINE_STATE = {
+	pipelineName: 'FakePipeline',
+	stageStates: [
+		{
+			stageName: 'Source',
+			latestExecution: {
+				status: 'Succeeded',
+			},
+		},
+		{
+			stageName: 'Build',
+			latestExecution: {
+				status: 'Stopped',
+			},
+		},
+		{
+			stageName: 'Deploy',
+			latestExecution: {
+				status: 'Succeeded',
+			},
+		},
+	],
+};
+
 export const MOCK_PENDING_PIPELINE_STATE = {
 	pipelineName: 'FakePipeline',
 	stageStates: [

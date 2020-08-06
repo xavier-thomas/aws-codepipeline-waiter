@@ -9,6 +9,7 @@ import {
 	MOCK_EVENT_TRIGGER_TRUE_CONTINUE,
 	MOCK_FAILED_PIPELINE_STATE,
 	MOCK_PENDING_PIPELINE_STATE,
+	MOCK_STOPPED_PIPELINE_STATE,
 	MOCK_SUCCESSFUL_PIPELINE_STATE,
 	MOCK_TARGET_NAME,
 } from './mocks';
@@ -95,7 +96,7 @@ describe('[index.js] unit tests', () => {
 			expect(console.info).toHaveBeenCalledWith('Pipeline FakePipeline Completed Successfully.');
 		});
 
-		it('must return a continuation token signal to the invoking pipeline when the target pipeline has failed', async () => {
+		it('must return a continuation token signal to the invoking pipeline when the target pipeline is in progress', async () => {
 			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
 			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
 			getPipelineState.mockResolvedValue(MOCK_PENDING_PIPELINE_STATE);
@@ -110,6 +111,16 @@ describe('[index.js] unit tests', () => {
 			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
 			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
 			getPipelineState.mockResolvedValue(MOCK_FAILED_PIPELINE_STATE);
+			await handler(MOCK_EVENT, MOCK_CONTEXT);
+			expect(continueJobLater).not.toHaveBeenCalled();
+			expect(notifySuccessfulJob).not.toHaveBeenCalled();
+			expect(notifyFailedJob).toHaveBeenCalledWith(MOCK_EVENT, MOCK_CONTEXT, 'FakePipeline has failed.');
+		});
+
+		it('must return a failure signal to the invoking pipeline when the target pipeline was stopped', async () => {
+			assumeRole.mockResolvedValue(MOCK_ASSUMED_ROLE_DATA);
+			getCredentials.mockResolvedValue(MOCK_CREDENTIALS_OBJECT);
+			getPipelineState.mockResolvedValue(MOCK_STOPPED_PIPELINE_STATE);
 			await handler(MOCK_EVENT, MOCK_CONTEXT);
 			expect(continueJobLater).not.toHaveBeenCalled();
 			expect(notifySuccessfulJob).not.toHaveBeenCalled();
