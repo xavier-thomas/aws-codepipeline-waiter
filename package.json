@@ -1,6 +1,6 @@
 {
   "name": "aws-codepipeline-waiter",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "An AWS lambda for a deployment AWS code-pipeline to monitor and wait for another pipeline.",
   "main": "src/index.js",
   "keywords": [
@@ -31,25 +31,25 @@
     }
   },
   "dependencies": {
-    "aws-sdk": "^2.727.0"
+    "aws-sdk": "^2.779.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.1",
-    "@babel/node": "^7.10.5",
-    "@babel/preset-env": "^7.11.0",
-    "@stryker-mutator/babel-transpiler": "^3.3.1",
-    "@stryker-mutator/core": "^3.3.1",
-    "@stryker-mutator/javascript-mutator": "^3.3.1",
-    "@stryker-mutator/jest-runner": "^3.3.1",
-    "eslint": "^7.6.0",
-    "eslint-config-prettier": "^6.11.0",
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/node": "^7.12.1",
+    "@babel/preset-env": "^7.12.1",
+    "@stryker-mutator/babel-transpiler": "^4.0.0",
+    "@stryker-mutator/core": "^4.0.0",
+    "@stryker-mutator/javascript-mutator": "^4.0.0",
+    "@stryker-mutator/jest-runner": "^4.0.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^6.14.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "husky": "^4.2.5",
-    "jest": "^26.2.2",
-    "jest-junit": "^11.1.0",
-    "jest-sonar": "^0.2.10",
-    "prettier": "^2.0.5"
+    "husky": "^4.3.0",
+    "jest": "^26.6.1",
+    "jest-junit": "^12.0.0",
+    "jest-sonar": "^0.2.11",
+    "prettier": "^2.1.2"
   }
 }

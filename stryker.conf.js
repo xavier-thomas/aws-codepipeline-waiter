@@ -7,7 +7,7 @@ module.exports = function(config) {
 		dashboard: {
 			reportType: 'full'
 		},
-		maxConcurrentTestRunners: 1,
+		maxConcurrentTestRunners: 7,
 		mutate: ['src/**/*.js', '!src/**/*.test.js', '!src/mocks.js'],
 		mutator: 'javascript',
 		jest: {

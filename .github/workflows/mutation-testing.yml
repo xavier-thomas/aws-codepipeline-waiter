@@ -20,9 +20,6 @@ jobs:
     - name: Install
       run: yarn
 
-    - name: Run unit tests
-      run: yarn test
-
     - name: Run mutation tests
       run: yarn mutate
       env:
