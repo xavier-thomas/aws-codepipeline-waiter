@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 2.1.3 - (April 22, 2021)
+### Changed
+- Update Dependencies
+
 ## 2.1.2 - (April 21, 2021)
 ### Changed
 - Update Dependencies
