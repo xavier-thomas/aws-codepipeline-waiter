@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
+## 2.2.0 - (November 07, 2022)
+### Changed
+- Upgrade to Node16.
+
 ## 2.1.3 - (April 22, 2021)
 ### Changed
 - Update Dependencies
