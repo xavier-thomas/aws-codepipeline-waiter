@@ -1,0 +1,30 @@
+{
+    "testRunner": "jest",
+    "mutator": "javascript",
+    "cleanTempDir": true,
+    "mutate": [
+        "src/**/*.js",
+        "!src/**/*.test.js",
+        "!src/mocks.js"
+    ],
+    "reporters": [
+        "clear-text",
+        "progress",
+        "html",
+        "dashboard"
+    ],
+    "maxConcurrentTestRunners": 12,
+    "transpilers": ["babel"],
+    "packageManager": "yarn",
+    "babel": {
+        "optionsFile": ".babelrc"
+    },
+    "coverageAnalysis": "all",
+    "dashboard": {
+        "reportType": "full"
+    },
+    "jest": {
+        "configFile": "./jest.config.json",
+        "enableFindRelatedTests": true
+    }
+}
