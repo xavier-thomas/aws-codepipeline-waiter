@@ -82,7 +82,7 @@ describe('[index.js] unit tests', () => {
 			expect(notifyFailedJob).toHaveBeenCalledWith(
 				MOCK_EVENT,
 				MOCK_CONTEXT,
-				'The following error occurred: {"AccessDenied":"User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole"}'
+				'The following error occurred: {"AccessDenied":"User: arn:aws:sts::123456789012:assumed-role/FakeLambdaRole/PipelineMonitorLambda is not authorized to perform: sts:AssumeRole on resource: arn:aws:iam::111111111111:role/FakeRole"}',
 			);
 		});
 
@@ -146,7 +146,7 @@ describe('[index.js] unit tests', () => {
 			expect(notifyFailedJob).toHaveBeenCalledWith(
 				MOCK_EVENT_INVALID,
 				MOCK_CONTEXT,
-				'Valid user parameters have not been specified.'
+				'Valid user parameters have not been specified.',
 			);
 		});
 	});
