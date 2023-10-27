@@ -1,6 +1,6 @@
 {
   "name": "aws-codepipeline-waiter",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "An AWS lambda for a deployment AWS code-pipeline to monitor and wait for another pipeline.",
   "main": "src/index.js",
   "keywords": [
@@ -31,7 +31,7 @@
     }
   },
   "dependencies": {
-    "aws-sdk": "^2.1477.0"
+    "aws-sdk": "^2.1482.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
@@ -42,7 +42,7 @@
     "@stryker-mutator/core": "^7.3.0",
     "@stryker-mutator/javascript-mutator": "^4.0.0",
     "@stryker-mutator/jest-runner": "^7.3.0",
-    "eslint": "^8.51.0",
+    "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.0.1",

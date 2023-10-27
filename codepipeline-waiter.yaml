@@ -24,7 +24,7 @@ Metadata:
     LicenseUrl: LICENSE
     Name: CodePipeline-Waiter
     ReadmeUrl: README.md
-    SemanticVersion: 2.3.0
+    SemanticVersion: 2.3.1
     SourceCodeUrl: https://github.com/xavier-thomas/aws-codepipeline-waiter
     SpdxLicenseId: BSD-3-Clause
 
