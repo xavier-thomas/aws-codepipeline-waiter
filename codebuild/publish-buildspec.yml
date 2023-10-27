@@ -8,7 +8,7 @@ phases:
   install:
     runtime-versions:
       nodejs: 18
-      python: 3.10
+      python: 3.11
     commands:
       - curl -H "Authorization:token $GITHUB_AUTH_TOKEN" https://api.github.com/repos/${RepoOwner}/${RepoName}/statuses/$CODEBUILD_RESOLVED_SOURCE_VERSION -d '{"state":"pending","description":"Build in progress","context":"SAR Publish"}'
       - pip install aws-sam-cli
