@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 # <<<----- ADD NEW VERSIONS HERE
 
-## 2.3.0  - (October 20, 2023)
+## 2.3.0 / 2.3.1 - (October 20, 2023)
 ### Changed
 - Upgrade to Node18.
 - Fixes to build steps.
